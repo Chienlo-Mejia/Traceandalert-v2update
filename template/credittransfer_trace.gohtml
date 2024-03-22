@@ -1,0 +1,143 @@
+{{template "header" .}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+    <style>
+     .container-fluid {
+            overflow-x: auto;
+        }
+
+        /* Sticky table header */
+        #credittransfertable thead th {
+            position: sticky;
+            top: 0;
+            left: 0; /* Keeps the header from moving horizontally */
+            background-color: white; /* Background color for visibility */
+            z-index: 100; /* Ensures it stays above other content */
+        }
+
+        /* Alternating row colors */
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Light gray */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff; /* White */
+        }
+
+        /* 3D effect */
+        tbody tr {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            border: 1px solid #ccc;
+        }
+
+        /* Color feedback based on value */
+        .actioned-mule {
+            color: red;
+        }
+
+        .not-investigated {
+            color: green;
+        }
+    </style>
+
+    <title>Credittransfer Information</title>
+</head>
+
+<body>
+    <div class="container-fluid p-2">
+        <!-- Date filter input -->
+        <label for="dateFilter">Filter by Date:</label>
+        <input type="date" id="dateFilter">
+        <!-- Button to export filtered data as CSV -->
+        <button onclick="exportCSV()">Export to CSV</button>
+        <table id="credittransfertable" aria-label="credittransfer">
+            <thead>
+                <tr>
+                    <th><small>Unique-ID</small></th>
+                    <th><small>RESPONSE</small></th>
+                    <th><small>TRACE_ALERT</small></th>
+                    <th><small>TRACE_TYPE</small></th>
+                    <th><small>TRANSACTIONTYPE</small></th>
+                    <th><small>ALERT_TYPE</small></th>
+                    <th><small>STATUS</small></th>
+                    <th><small>REASONCODE</small></th>
+                    <th><small>LOCALINSTRUMENT</small></th>
+                    <th><small>INSTRUCTION_ID</small></th>
+                    <th><small>REFERENCEID</small></th>
+                    <th><small>DECISIONDATE</small></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .ctResponse}}
+                <tr>
+                    <td>{{.Uniqueidcredittransfer}}</td>
+                    <td>{{.Message}}</td>
+                    <td> {{.Trace_alert}}</td>
+                    <td class="{{if eq .Sourcetxntype "FRAUD"}}text-danger{{else if eq .Sourcetxntype "NONE"}}text-success{{else if eq .Sourcetxntype "null"}}text-danger{{end}}">
+                        {{.Sourcetxntype}}
+                    </td>
+                    <td>{{.Transaction_type}}</td>
+                    <td>{{.Alerttype}} </td>
+                    <td>{{.Status}}</td>
+                    <td>{{.Reason_code}}</td>
+                    <td>{{.Local_instrument}}</td>
+                    <td>{{.Instruction_id}}</td>
+                    <td>{{.Reference_id}}</td>
+                    <td>{{.Requesttrigger}}</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#credittransfertable').DataTable({
+                order: [[0, 'desc']]
+            });
+        });
+
+        function exportCSV() {
+            var table = $('#credittransfertable').DataTable();
+            var data = table.rows().data().toArray();
+            var csvContent = "data:text/csv;charset=utf-8,";
+
+            // Add header row
+            var headerRow = [];
+            $('#credittransfertable thead th').each(function () {
+                headerRow.push($(this).text());
+            });
+            csvContent += headerRow.join(",") + "\n";
+
+            // Add data rows
+            data.forEach(function (row) {
+                csvContent += row.join(",") + "\n";
+            });
+
+            // Create a temporary link and trigger a click to download the CSV
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "credit_transfer_data.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

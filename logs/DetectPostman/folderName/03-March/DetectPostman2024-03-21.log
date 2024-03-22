@@ -1,0 +1,30 @@
+2024/03/21 10:19:03 
+INFO: 2024/03/21 10:19:03                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/03/21 10:19:03 Message: Transaction detected in MOBILEPHONE from the Device-ID f50f5782db5787db!
+INFO: 2024/03/21 10:19:03 Date_Time: 2024-03-21 10:19:03.68096 +0800 PST m=+13.606458667
+2024/03/21 10:19:03 
+2024/03/21 10:19:19 
+INFO: 2024/03/21 10:19:19                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/03/21 10:19:19 Message: Transaction detected in POSTMAN from the endpoint of /Email!
+INFO: 2024/03/21 10:19:19 Date_Time: 2024-03-21 10:19:19.043757 +0800 PST m=+28.971822459
+2024/03/21 10:19:19 
+2024/03/21 10:19:39 
+INFO: 2024/03/21 10:19:39                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/03/21 10:19:39 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/03/21 10:19:39 Date_Time: 2024-03-21 10:19:39.155386 +0800 PST m=+49.084796001
+2024/03/21 10:19:39 
+2024/03/21 11:09:25 
+INFO: 2024/03/21 11:09:25                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/03/21 11:09:25 Message: Transaction detected in MOBILEPHONE from the Device-ID f50f5782db5787db!
+INFO: 2024/03/21 11:09:25 Date_Time: 2024-03-21 11:09:25.789967 +0800 PST m=+1768.510821293
+2024/03/21 11:09:25 
+2024/03/21 11:36:41 
+INFO: 2024/03/21 11:36:41                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/03/21 11:36:41 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/03/21 11:36:41 Date_Time: 2024-03-21 11:36:41.975014 +0800 PST m=+36.586870626
+2024/03/21 11:36:41 
+2024/03/21 11:37:24 
+INFO: 2024/03/21 11:37:24                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/03/21 11:37:24 Message: Transaction detected in MOBILEPHONE from the Device-ID f50f5782db5787db!
+INFO: 2024/03/21 11:37:24 Date_Time: 2024-03-21 11:37:24.638685 +0800 PST m=+79.250411001
+2024/03/21 11:37:24 

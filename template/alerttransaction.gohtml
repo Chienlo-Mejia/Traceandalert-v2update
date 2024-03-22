@@ -1,0 +1,114 @@
+{{template "header" .}}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <title>Alert_transaction</title>
+</head>
+<style>
+    body {
+        background-image: url('/pin-on-animated-gifs.gif');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: white;
+    }
+
+    table {
+        color: white;
+        background-color: rgba(2, 16, 42, 0.8);/* Darker gray transparent background */
+        border-collapse: collapse; /* Collapse table borders */
+        width: 100%; /* Ensure table takes full width */
+    }
+   
+    table th,
+    table td {
+        padding: 8px; /* Add padding to table cells */
+        text-align: center; /* Center-align table content */
+    }
+
+    /* Customizing previous and next buttons */
+    
+    .dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+    .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+        color: white;
+    }
+    .dataTables_wrapper .dataTables_filter .dataTables_filter_close {
+        color: red;
+    }
+    
+</style>
+<body>
+    <div class="container-fluid p-2">
+        <table id="alerttransactiontable"  aria-label="alerttransaction">
+            <thead>
+                <tr>
+                    
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Unique-ID</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>ID</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Txnid</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Networkalertid</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Networkid</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Sourceid</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Destid</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Sourcebankid</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Sourcebankname</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Destbankid</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Destbankname</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Parentalertid</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Decisiondate</small></th>
+                    <th style="text-align: center; border-width: 2px; border-color: black; border-radius: 10px;"><small>Errors</small></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .ctResponse}}
+                <tr>
+                    
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Uniqueidalertaccount}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.ID}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Txnid}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Networkalertid}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Networkid}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Sourceid}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Destid}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Sourcebankid}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Sourcebankname}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Destbankid}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Destbankname}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Parentalertid}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Decisiondate}}</td>
+                    <td style="text-align: center; border-width: 1px; border-color: black; ">{{.Errors}}</td>
+                </tr>
+                
+                
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+    
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#alerttransactiontable').DataTable({
+                order: [[0, 'desc']]
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
