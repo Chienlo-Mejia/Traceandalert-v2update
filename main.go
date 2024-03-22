@@ -120,7 +120,7 @@ func main() {
 
 	//----------
 
-	fmt.Println("Port-> ", middleware.GetEnv("PORT"))
+	fmt.Println("Port:", middleware.GetEnv("PORT"))
 	// Serve the application
 	if middleware.GetEnv("SSL") == "enabled" {
 		log.Fatal(app.ListenTLS(
