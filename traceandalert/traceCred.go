@@ -18,11 +18,11 @@ import (
 // - "ALERT_FINANCIAL_CRIME"
 // - "TRACE_FINANCIAL_CRIME"
 
-func Tracenetworkcred(c *fiber.Ctx) error {
+func TracenetworkCred(c *fiber.Ctx) error {
 	userRequest := &tracenetwork.Trans_Body{}
 	var transactions []tracenetwork.Trans_Request
 	userresponse := &tracenetwork.Trans_Request{}
-	Uniqueidcredittransfer := Iftgeneratetracecredittransfer(32)
+	UniqueidCredittransfer := Iftgeneratetracecredittransfer(32)
 	// requestTrigger := time.Now().Format("03:04:05")
 	// requestTrigger := time.Now().Format("2006-01-02")
 	requestTrigger := time.Now().Format("2006-01-02 15:04:05")
@@ -33,7 +33,7 @@ func Tracenetworkcred(c *fiber.Ctx) error {
 	if err := c.BodyParser(userRequest); err != nil {
 		// 400 Bad Request
 
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
 		return errorhandling.Bad_Request(c, "The request contains a bad payload")
 	}
 
@@ -68,7 +68,7 @@ func Tracenetworkcred(c *fiber.Ctx) error {
 	resultCount := database.DBConn.Raw(CountQuery).Count(&count)
 	if resultCount.Error != nil {
 		//400
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
 		return errorhandling.Bad_Request(c, "Error counting transactions")
 	}
 
@@ -76,7 +76,7 @@ func Tracenetworkcred(c *fiber.Ctx) error {
 		resultFilteredCount := database.DBConn.Raw(CountFilteredQuery, userRequest.Since).Count(&filteredCount)
 		if resultFilteredCount.Error != nil {
 			//400
-			loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
+			loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
 			return errorhandling.Bad_Request(c, "Error counting filtered transactions")
 		}
 	}
@@ -95,18 +95,18 @@ func Tracenetworkcred(c *fiber.Ctx) error {
 
 	if err != nil {
 		// 400 Bad Request
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
 		return errorhandling.Bad_Request(c, "Error retrieving transactions")
 	}
 
 	if len(transactions) == 0 {
 		// 404 Not Found
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(NOT_FOUND - 404)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(NOT_FOUND - 404)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
 		return errorhandling.Url_Not_Found(c, "No data found for the specified date")
 	}
 
 	// Check if transaction exists and its type
-	exists, err := checktxnidexist(transactions[0].Reference_id, transactions[0].Instruction_id, transactions[0].Receiving_account, transactions[0].Receiving_name, transactions[0].Sender_account, transactions[0].Sender_name)
+	exists, err := checktxnidexist(transactions[0].ReferenceId, transactions[0].InstructionId, transactions[0].ReceivingAccount, transactions[0].ReceivingName, transactions[0].SenderAccount, transactions[0].SenderName)
 	if err != nil {
 		return errorhandling.Internal_Server_Error(c, "Error while checking transaction existence")
 	}
@@ -149,23 +149,23 @@ func Tracenetworkcred(c *fiber.Ctx) error {
 	for i := 0; i < userLimit && i < len(transactions); i++ {
 
 		Errors := errorresp.Errorresponse
-		Instruction_id := transactions[i].Instruction_id
-		Transaction_type := transactions[i].Transaction_type
+		InstructionId := transactions[i].InstructionId
+		TransactionType := transactions[i].TransactionType
 		Status := transactions[i].Status
-		Reason_code := transactions[i].Reason_code
-		Local_instrument := transactions[i].Local_instrument
-		Reference_id := transactions[i].Reference_id
-		Sender_bic := transactions[i].Sender_bic
-		Sender_name := transactions[i].Sender_name
-		Sender_account := transactions[i].Sender_account
+		Reason_code := transactions[i].ReasonCode
+		LocalInstrument := transactions[i].LocalInstrument
+		ReferenceId := transactions[i].ReferenceId
+		SenderBic := transactions[i].SenderBic
+		SenderName := transactions[i].SenderName
+		SenderAccount := transactions[i].SenderAccount
 		Amount := transactions[i].Amount
 		Currency := transactions[i].Currency
-		Receiving_bic := transactions[i].Receiving_bic
-		Receiving_name := transactions[i].Receiving_name
-		Receiving_account := transactions[i].Receiving_account
+		ReceivingBic := transactions[i].ReceivingBic
+		ReceivingName := transactions[i].ReceivingName
+		ReceivingAccount := transactions[i].ReceivingAccount
 
 		message := fmt.Sprintf(" Success %s ", Errors)
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, message, Instruction_id, requestTrigger, Transaction_type, Status, Reason_code, Local_instrument, Reference_id, Sender_bic, Sender_name, Sender_account, Amount, Currency, Receiving_bic, Receiving_name, Receiving_account, Trace_alert, Sourcetxntype, Alerttype)
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, message, InstructionId, requestTrigger, TransactionType, Status, Reason_code, LocalInstrument, ReferenceId, SenderBic, SenderName, SenderAccount, Amount, Currency, ReceivingBic, ReceivingName, ReceivingAccount, Trace_alert, Sourcetxntype, Alerttype)
 	}
 
 	return c.JSON(responseBody)

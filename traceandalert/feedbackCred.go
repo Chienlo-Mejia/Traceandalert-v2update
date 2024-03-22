@@ -51,24 +51,24 @@ import (
 
 //		return c.JSON(responseBody)
 //	}
-func Feedbackcredit(c *fiber.Ctx) error {
+func FeedbackCredit(c *fiber.Ctx) error {
 	network := &tracenetwork.Credittransfer_feedback{}
-	Uniqueidcredittransfer := Iftgeneratefeedbackcredittransfer(32)
+	UniqueidCredittransfer := Iftgeneratefeedbackcredittransfer(32)
 
 	requestTrigger := time.Now().Format("2006-01-02 15:04:05")
 	if err := c.BodyParser(network); err != nil {
 		//400
-		loggers.Creditransferfeedbacklogs(c.Path(), "folderName", Uniqueidcredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "NETWORK_FINANCIAL_CRIME", "null", "null", "null")
+		loggers.CreditransferFeedbackLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "NETWORK_FINANCIAL_CRIME", "null", "null", "null")
 		return errorhandling.Bad_Request(c, "The request contains a bad payload")
 	}
 
 	var transactions []tracenetwork.Credittransfer_feedback_response
-	if err := database.DBConn.Debug().Raw("SELECT * FROM trace_alerts.logscredittransfer WHERE uniqueidcredittransfer = ? AND sourcetxntype = ? AND trace_alert = ? AND alerttype = ? ", network.Uniqueidcredittransfer, network.Tracetype, network.Trace_alert, network.Alerttype).Find(&transactions).Error; err != nil {
+	if err := database.DBConn.Debug().Raw("SELECT * FROM trace_alerts.logscredittransfer WHERE uniqueid_credittransfer = ? AND source_txn_type = ? AND trace_alert = ? AND alert_type = ? ", network.UniqueidCredittransfer, network.TraceType, network.TraceAlert, network.AlertType).Find(&transactions).Error; err != nil {
 		return errorhandling.Internal_Server_Error(c, "Internal server error")
 	}
 
 	var Feedback string
-	rows, err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.logscredittransfer WHERE sourcetxntype = 'FRAUD'`).Rows()
+	rows, err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.logscredittransfer WHERE source_txn_type = 'FRAUD'`).Rows()
 	if err != nil {
 		panic(err)
 	}
@@ -77,7 +77,7 @@ func Feedbackcredit(c *fiber.Ctx) error {
 	if rows.Next() {
 		Feedback = "ACTIONED_MULE"
 	} else {
-		rows, err = database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.logscredittransfer WHERE sourcetxntype IS NULL OR sourcetxntype = 'NONE'`).Rows()
+		rows, err = database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.logscredittransfer WHERE source_txn_type IS NULL OR source_txn_type = 'NONE'`).Rows()
 		if err != nil {
 			panic(err)
 		}
@@ -94,7 +94,7 @@ func Feedbackcredit(c *fiber.Ctx) error {
 
 	if len(transactions) == 0 {
 		//404
-		loggers.Creditransferfeedbacklogs(c.Path(), "folderName", Uniqueidcredittransfer, "(Method Not Allowed - 404)", "null", requestTrigger, "null", "null", "null", "null", "null", "NETWORK_FINANCIAL_CRIME", "null", "null", "null")
+		loggers.CreditransferFeedbackLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 404)", "null", requestTrigger, "null", "null", "null", "null", "null", "NETWORK_FINANCIAL_CRIME", "null", "null", "null")
 		return errorhandling.Url_Not_Found(c, "No data found for the specified date")
 	}
 
@@ -104,8 +104,8 @@ func Feedbackcredit(c *fiber.Ctx) error {
 	}{}
 
 	responseBody.Alerts = fiber.Map{
-		"InstructionsID": transactions[0].Instruction_id,
-		"ReferenceID":    transactions[0].Reference_id,
+		"InstructionsID": transactions[0].InstructionId,
+		"ReferenceID":    transactions[0].ReferenceId,
 		"DECISIONDATE":   requestTrigger,
 		"FEEDBACK":       Feedback,
 	}
@@ -116,19 +116,19 @@ func Feedbackcredit(c *fiber.Ctx) error {
 		Errors := errorresp.Errorresponse
 		transaction := transactions[i]
 
-		Uniqueidcredittransfer := transaction.Uniqueidcredittransfer
-		Instruction_id := transaction.Instruction_id
-		Reference_id := transaction.Reference_id
-		Transaction_type := transaction.Transaction_type
+		UniqueidCredittransfer := transaction.UniqueidCredittransfer
+		Instruction_id := transaction.InstructionId
+		Reference_id := transaction.ReferenceId
+		Transaction_type := transaction.TransactionType
 		Status := transaction.Status
-		Reason_code := transaction.Reason_code
-		Local_instrument := transaction.Local_instrument
-		Trace_alert := transactions[0].Trace_alert
-		Sourcetxntype := transactions[0].Sourcetxntype
-		Alerttype := transaction.Alerttype
+		Reason_code := transaction.ReasonCode
+		Local_instrument := transaction.LocalInstrument
+		Trace_alert := transactions[0].TraceAlert
+		Sourcetxntype := transactions[0].SourceTxnType
+		Alerttype := transaction.AlertType
 		message := fmt.Sprintf(" Success %s ", Errors)
 
-		loggers.Creditransferfeedbacklogs(c.Path(), "folderName", Uniqueidcredittransfer, message, Instruction_id, requestTrigger, Transaction_type, Status, Reason_code, Local_instrument, Reference_id, Trace_alert, Sourcetxntype, Alerttype, Feedback)
+		loggers.CreditransferFeedbackLogs(c.Path(), "folderName", UniqueidCredittransfer, message, Instruction_id, requestTrigger, Transaction_type, Status, Reason_code, Local_instrument, Reference_id, Trace_alert, Sourcetxntype, Alerttype, Feedback)
 	}
 
 	responseBody.TransactionAlerts = transactions

@@ -82,21 +82,21 @@
             <tbody>
                 {{range .ctResponse}}
                 <tr>
-                    <td>{{.Uniqueidcredittransfer}}</td>
+                    <td>{{.UniqueidCredittransfer}}</td>
                     <td>{{.Message}}</td>
-                    <td> {{.Trace_alert}}</td>
-                    <td class="{{if eq .Sourcetxntype "FRAUD"}}text-danger{{else if eq .Sourcetxntype "NONE"}}text-success{{else if eq .Sourcetxntype "null"}}text-danger{{end}}">
-                        {{.Sourcetxntype}}
+                    <td> {{.TraceAlert}}</td>
+                    <td class="{{if eq .SourceTxnType "FRAUD"}}text-danger{{else if eq .SourceTxnType "NONE"}}text-success{{else if eq .SourceTxnType "null"}}text-danger{{end}}">
+                        {{.SourceTxnType}}
                     </td>
-                    <td>{{.Transaction_type}}</td>
-                    <td>{{.Alerttype}}</td>
+                    <td>{{.TransactionType}}</td>
+                    <td>{{.AlertType}}</td>
                     <td class="{{if eq .Feedback "ACTIONED_MULE"}}actioned-mule{{else if eq .Feedback "NOT_INVESTIGATED"}}not-investigated{{end}}">{{.Feedback}}</td>
                     <td>{{.Status}}</td>
-                    <td>{{.Reason_code}}</td>
-                    <td>{{.Local_instrument}}</td>
-                    <td>{{.Instruction_id}}</td>
-                    <td>{{.Reference_id}}</td>
-                    <td>{{.Requesttrigger}}</td>
+                    <td>{{.ReasonCode}}</td>
+                    <td>{{.LocalInstrument}}</td>
+                    <td>{{.InstructionId}}</td>
+                    <td>{{.ReferenceId}}</td>
+                    <td>{{.RequestTrigger}}</td>
                 </tr>
                 {{end}}
             </tbody>

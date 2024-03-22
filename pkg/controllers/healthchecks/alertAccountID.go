@@ -40,7 +40,7 @@ func GetAccInfo(c *fiber.Ctx) error {
 		return errorhandling.Method_Not_Allowed(c, "Method_Not_Allowed")
 	}
 
-	rows, err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.trace_account_alerts WHERE accountid = ?`, info.Accountid).Rows()
+	rows, err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.trace_account_alerts WHERE accountid = ?`, info.AccountId).Rows()
 	if err != nil {
 		//400
 		return errorhandling.Bad_Request(c, "The request contains a bad payload")

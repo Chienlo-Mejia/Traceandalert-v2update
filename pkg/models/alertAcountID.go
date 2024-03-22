@@ -4,45 +4,45 @@ import "time"
 
 type (
 	AccountAlertRequest1 struct {
-		Accountid string `json:"accountid"`
+		AccountId string `json:"accountId"`
 	}
 
 	ResponseInfo1 struct {
-		ID                           string    `json:"id"`
-		Networkalertid               string    `json:"networkalertid"`
-		Accountid                    string    `json:"accountid"`
-		Networkid                    string    `json:"networkid"`
-		Owningbankid                 string    `json:"owningbankid"`
-		Owningbankname               string    `json:"owningbankname"`
+		ID                           string    `json:"Id"`
+		NetworkalertId               string    `json:"networkalertId"`
+		AccountId                    string    `json:"accountId"`
+		NetworkId                    string    `json:"networkId"`
+		OwningbankId                 string    `json:"owningbankId"`
+		OwningbankName               string    `json:"owningbankName"`
 		Time                         time.Time `json:"time"`
 		Name                         string    `json:"name"`
-		Mulescore                    float64   `json:"muleScore"`
-		Sourcetransactionvalue       int       `json:"sourcetransactionvalue"`
-		Endpointflag                 bool      `json:"endpointflag"`
-		Numoutboundrelationships     int       `json:"numoutboundrelationships"`
-		NumInboundRelationships      int       `json:"numinboundrelationships"`
-		Numscheduledmandates         int       `json:"numscheduledmandates"`
-		Firstappearance              time.Time `json:"firstappearance"`
-		Mostrecentappearance         time.Time `json:"mostrecentappearance"`
-		Firsttransactiontime         time.Time `json:"firsttransactiontime"`
-		Mostrecenttransactiontime    time.Time `json:"mostrecenttransactiontime"`
-		Receivessalary               bool      `json:"receivessalary"`
-		Dwelltime                    string    `json:"dwelltime"`
-		Numnetworks                  int       `json:"numnetworks"`
-		Numtracednetworks            int       `json:"numtracednetworks"`
+		MuleScore                    float64   `json:"muleScore"`
+		SourcetransactionValue       int       `json:"sourcetransactionValue"`
+		EndpointFlag                 bool      `json:"endpointFlag"`
+		NumoutboundRelationships     int       `json:"numoutboundRelationships"`
+		NumInboundRelationships      int       `json:"numinboundRelationships"`
+		NumscheduledMandates         int       `json:"numscheduledMandates"`
+		FirstAppearance              time.Time `json:"firstAppearance"`
+		MostrecentAppearance         time.Time `json:"mostrecentAppearance"`
+		FirstTransactiontime         time.Time `json:"firstTransactiontime"`
+		MostrecentTransactiontime    time.Time `json:"mostrecentTransactiontime"`
+		ReceivesSalary               bool      `json:"receivesSalary"`
+		DwellTime                    string    `json:"dwellTime"`
+		NumNetworks                  int       `json:"numNetworks"`
+		NumtracedNetworks            int       `json:"numtracedNetworks"`
 		Generation                   int       `json:"generation"`
-		Tracetype                    string    `json:"traceType"`
-		Totalsuspiciousvalueinbound  int       `json:"totalsuspiciousvalueinbound"`
-		Totalsuspiciousvalueoutbound int       `json:"totalsuspiciousvalueoutbound"`
-		Totalvalueinbound            int       `json:"totalvalueinbound"`
-		Totalvalueoutbound           int       `json:"totalvalueoutbound"`
+		TraceType                    string    `json:"traceType"`
+		TotalsuspiciousvalueInbound  int       `json:"totalsuspiciousvalueInbound"`
+		TotalsuspiciousvalueOutbound int       `json:"totalsuspiciousvalueOutbound"`
+		TotalvalueInbound            int       `json:"totalvalueInbound"`
+		TotalvalueOutbound           int       `json:"totalvalueOutbound"`
 		Generations                  []int     `json:"generations"`
-		Mostrecentfeedback           string    `json:"mostrecentfeedback"`
-		Parentalertid                string    `json:"parentalertid"`
-		Decisiondate                 time.Time `json:"decisiondate"`
+		MostrecentFeedback           string    `json:"mostrecentFeedback"`
+		ParentalertId                string    `json:"parentalertId"`
+		DecisionDate                 time.Time `json:"decisionDate"`
 	}
 	Token struct {
-		Nextpaginationtoken     string `json:"nextpaginationtoken"`
-		Previouspaginationtoken string `json:"previouspaginationtoken"`
+		NextpaginationToken     string `json:"nextpaginationToken"`
+		PreviouspaginationToken string `json:"previouspaginationToken"`
 	}
 )

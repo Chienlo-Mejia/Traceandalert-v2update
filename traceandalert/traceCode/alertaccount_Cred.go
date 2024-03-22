@@ -34,7 +34,7 @@ func Alertaccount_Credittransfer(c *fiber.Ctx) error {
 	if err := c.BodyParser(userRequest); err != nil {
 		// 400 Bad Request
 
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "The request body is expecting an array", userresponse.Instruction_id, requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, Sourcetxntype, "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", Uniqueidcredittransfer, "The request body is expecting an array", userresponse.InstructionId, requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, Sourcetxntype, "null")
 
 		return errorhandling.Bad_Request(c, "The request contains a bad payload")
 	}
@@ -111,7 +111,7 @@ func Alertaccount_Credittransfer(c *fiber.Ctx) error {
 	}
 
 	// Check if transaction exists and its type
-	exists, err := checktxnidexistalertaccount(transactions[0].Reference_id, transactions[0].Instruction_id, transactions[0].Receiving_account, transactions[0].Receiving_name, transactions[0].Sender_account, transactions[0].Sender_name)
+	exists, err := checktxnidexistalertaccount(transactions[0].ReferenceId, transactions[0].InstructionId, transactions[0].ReceivingAccount, transactions[0].ReceivingName, transactions[0].SenderAccount, transactions[0].SenderName)
 	if err != nil {
 		return errorhandling.Internal_Server_Error(c, "Error while checking transaction existence")
 	}
@@ -156,23 +156,23 @@ func Alertaccount_Credittransfer(c *fiber.Ctx) error {
 	for i := 0; i < userLimit && i < len(transactions); i++ {
 
 		Errors := errorresp.Errorresponse
-		Instructionid := transactions[i].Instruction_id
-		Transactiontype := transactions[i].Transaction_type
+		InstructionId := transactions[i].InstructionId
+		TransactionType := transactions[i].TransactionType
 		Status := transactions[i].Status
-		Reasoncode := transactions[i].Reason_code
-		Localinstrument := transactions[i].Local_instrument
-		Referenceid := transactions[i].Reference_id
-		Senderbic := transactions[i].Sender_bic
-		Sendername := transactions[i].Sender_name
-		Senderaccount := transactions[i].Sender_account
+		ReasonCode := transactions[i].ReasonCode
+		LocalInstrument := transactions[i].LocalInstrument
+		ReferenceId := transactions[i].ReferenceId
+		SenderBic := transactions[i].SenderBic
+		SenderName := transactions[i].SenderName
+		SenderAccount := transactions[i].SenderAccount
 		Amount := transactions[i].Amount
 		Currency := transactions[i].Currency
-		Receivingbic := transactions[i].Receiving_bic
-		Receivingname := transactions[i].Receiving_name
-		Receivingaccount := transactions[i].Receiving_account
+		ReceivingBic := transactions[i].ReceivingBic
+		ReceivingName := transactions[i].ReceivingName
+		ReceivingAccount := transactions[i].ReceivingAccount
 
 		message := fmt.Sprintf(" Success %s ", Errors)
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, message, Instructionid, requestTrigger, Transactiontype, Status, Reasoncode, Localinstrument, Referenceid, Senderbic, Sendername, Senderaccount, Amount, Currency, Receivingbic, Receivingname, Receivingaccount, Trace_alert, Sourcetxntype, Alerttype)
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", Uniqueidcredittransfer, message, InstructionId, requestTrigger, TransactionType, Status, ReasonCode, LocalInstrument, ReferenceId, SenderBic, SenderName, SenderAccount, Amount, Currency, ReceivingBic, ReceivingName, ReceivingAccount, Trace_alert, Sourcetxntype, Alerttype)
 	}
 
 	return c.JSON(responseBody)

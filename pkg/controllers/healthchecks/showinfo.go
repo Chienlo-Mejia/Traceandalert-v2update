@@ -8,88 +8,88 @@ import (
 )
 
 type Logsfeedback struct {
-	Uniqueidfeedback string `json:"uniqueidfeedback"`
-	Alertid          string `json:"alertid"`
-	Feedbackid       string `json:"feedbackid"`
+	UniqueidFeedback string `json:"uniqueidFeedback"`
+	AlertId          string `json:"alertId"`
+	FeedbackId       string `json:"feedbackId"`
 	Errors           string `json:"errors"`
 }
 
 type LogsAlert struct {
-	Uniqueidalertaccount string `json:"uniqueidalertaccount"`
+	UniqueidAlertaccount string `json:"uniqueidAlertaccount"`
 	ID                   string `json:"id"`
 	Message              string `json:"message"`
-	Networkalertid       string `json:"networkalertid"`
-	Accountid            string `json:"accountid"`
-	Networkid            string `json:"networkid"`
-	Owningbankid         string `json:"owningbankid"`
-	Owningbankname       string `json:"owningbankname"`
-	Decisiondate         string `json:"decisiondate"`
-	Parentalertid        string `json:"parentalertid"`
+	NetworkalertId       string `json:"networkalertId"`
+	AccountId            string `json:"accountId"`
+	NetworkId            string `json:"networkId"`
+	OwningbankId         string `json:"owningbankId"`
+	OwningbankName       string `json:"owningbankName"`
+	DecisionDate         string `json:"decisionDate"`
+	ParentalertId        string `json:"parentalertId"`
 }
 
 type Logstracevisualisation struct {
-	Uniqueidvisualisation string `json:"uniqueidvisualisation"`
-	Networkalertid        string `json:"networkalertid"`
-	Traceid               string `json:"traceid"`
+	UniqueidVisualisation string `json:"uniqueidVisualisation"`
+	NetworkalertId        string `json:"networkalertId"`
+	TraceId               string `json:"traceId"`
 	Errors                string `json:"errors"`
 }
 
 type Logstracenetwork struct {
-	Uniqueidnetwork string    `json:"uniqueidnetwork"`
-	Txnid_RB        string    `json:"txnid_RB"`
-	Txnid           string    `json:"txnid"`
-	Networkid       string    `json:"networkid"`
-	Sourcetxnid     string    `json:"sourcetxnid"`
-	Decisiondate    time.Time `json:"decisiondate"`
+	UniqueidNetwork string    `json:"uniqueidNetwork"`
+	TxnidRb         string    `json:"txnidRb"`
+	TxnId           string    `json:"txnId"`
+	NetworkId       string    `json:"networkId"`
+	SourcetxnId     string    `json:"sourcetxnId"`
+	DecisionDate    time.Time `json:"decisionDate"`
 	Errors          string    `json:"errors"`
 }
 
 type Logsalerttransaction struct {
-	Uniqueidalertaccount string    `json:"uniqueidalertaccount"`
+	UniqueidAlertaccount string    `json:"uniqueidAlertaccount"`
 	ID                   string    `json:"id"`
 	Errors               string    `json:"errors"`
-	Txnid                string    `json:"txnid"`
-	Networkalertid       string    `json:"networkalertid"`
-	Networkid            string    `json:"networkid"`
-	Sourceid             string    `json:"sourceid"`
-	Destid               string    `json:"destid"`
-	Sourcebankid         string    `json:"sourcebankid"`
-	Sourcebankname       string    `json:"sourcebankname"`
-	Destbankid           string    `json:"destbankid"`
-	Destbankname         string    `json:"destbankname"`
-	Parentalertid        string    `json:"parentalertid"`
-	Decisiondate         time.Time `json:"decisiondate"`
+	TxnId                string    `json:"txnId"`
+	NetworkalertId       string    `json:"networkalertId"`
+	NetworkId            string    `json:"networkId"`
+	SourceId             string    `json:"sourceId"`
+	DestId               string    `json:"destId"`
+	SourcebankId         string    `json:"sourcebankId"`
+	SourcebankName       string    `json:"sourcebankName"`
+	DestbankId           string    `json:"destbankId"`
+	DestbankName         string    `json:"destbankName"`
+	ParentalertId        string    `json:"parentalertId"`
+	DecisionDate         time.Time `json:"decisionDate"`
 }
 
 type Logscredittransfer struct {
-	Uniqueidcredittransfer string `json:"uniqueidcredittransfer"`
+	UniqueidCredittransfer string `json:"uniqueidCredittransfer"`
 	Message                string `json:"message"`
-	Trace_alert            string `json:"trace_alert"`
-	Sourcetxntype          string `json:"sourcetxntype"`
-	Transaction_type       string `json:"transaction_type"`
+	TraceAlert             string `json:"traceAlert"`
+	SourceTxnType          string `json:"sourceTxnType"`
+	TransactionType        string `json:"transactionType"`
 	Status                 string `json:"status"`
-	Reason_code            string `json:"reason_code"`
-	Local_instrument       string `json:"local_instrument"`
-	Instruction_id         string `json:"instruction_id"`
-	Reference_id           string `json:"reference_id"`
-	Requesttrigger         string `json:"requesttrigger"`
-	Alerttype              string `json:"alerttype"`
+	ReasonCode             string `json:"reasonCode"`
+	LocalInstrument        string `json:"localInstrument"`
+	InstructionId          string `json:"instructionId"`
+	ReferenceId            string `json:"referenceId"`
+	RequestTrigger         string `json:"requestTrigger"`
+	AlertType              string `json:"alertType"`
 	Feedback               string `json:"feedback"`
 }
 
 type LogsFeedback_credittransfer struct {
-	Uniqueidcredittransfer string `json:"uniqueidcredittransfer"`
+	UniqueidCredittransfer string `json:"uniqueidCredittransfer"`
 	Message                string `json:"message"`
-	Trace_alert            string `json:"trace_alert"`
-	Sourcetxntype          string `json:"sourcetxntype"`
-	Transaction_type       string `json:"transaction_type"`
+	TraceAlert             string `json:"traceAlert"`
+	SourceTxnType          string `json:"sourceTxnType"`
+	TransactionType        string `json:"transactionType"`
 	Status                 string `json:"status"`
-	Reason_code            string `json:"reason_code"`
-	Local_instrument       string `json:"local_instrument"`
-	Instruction_id         string `json:"instruction_id"`
-	Reference_id           string `json:"reference_id"`
-	Requesttrigger         string `json:"requesttrigger"`
-	Alerttype              string `json:"alerttype"`
+	ReasonCode             string `json:"reasonCode"`
+	LocalInstrument        string `json:"localInstrument"`
+	InstructionId          string `json:"instructionId"`
+	ReferenceId            string `json:"referenceId"`
+	RequestTrigger         string `json:"requestTrigger"`
+	AlertType              string `json:"alertType"`
 	Feedback               string `json:"feedback"`
 }
 

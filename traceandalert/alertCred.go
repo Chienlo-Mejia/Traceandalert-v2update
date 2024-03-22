@@ -21,7 +21,7 @@ var (
 
 const maxTransactionsPerDay = 5
 
-func checkRateLimits_feedback(ID string) bool {
+func CheckratelimitsFeedback(ID string) bool {
 	mu.Lock()
 	defer mu.Unlock()
 	today := time.Now().Format("2006-01-02")
@@ -55,32 +55,32 @@ func ResetRequestCountsDaily() {
 // - "ALERT_FINANCIAL_CRIME"
 // - "TRACE_FINANCIAL_CRIME"
 
-func Alertnetworkcredit(c *fiber.Ctx) error {
+func AlertnetworkCredit(c *fiber.Ctx) error {
 	network := &tracenetwork.Credit_transfer{}
-	Uniqueidcredittransfer := Iftgeneratealertcredittransfer(32)
+	UniqueidCredittransfer := iftGenerateAlert_CreditTransfer(32)
 	requestTrigger := time.Now().Format("2006-01-02 15:04:05")
 
 	var transactions []tracenetwork.Trans_Request
-	var Sourcetxntype string
-	var Trace_alert string
-	var Alerttype string
+	var SourceTxnType string
+	var TraceAlert string
+	var AlertType string
 
 	if err := c.BodyParser(network); err != nil {
 		// Return 400 Bad Request with error message
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
 		return errorhandling.Bad_Request(c, "The request contains a bad payload")
 	}
 
 	// Check rate limits
-	if checkRateLimits_feedback(network.Instruction_id) {
+	if CheckratelimitsFeedback(network.InstructionId) {
 		// 429
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(Method Not Allowed - 429)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 429)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
 		return errorhandling.Rate_Limit_Exceeded(c, "Rate limit exceeded")
 	}
 
-	if err := database.DBConn.Debug().Raw("SELECT * FROM rbi_instapay.ct_transaction WHERE instruction_id = ? ", network.Instruction_id).Scan(&transactions).Error; err != nil {
+	if err := database.DBConn.Debug().Raw("SELECT * FROM rbi_instapay.ct_transaction WHERE instruction_id = ? ", network.InstructionId).Scan(&transactions).Error; err != nil {
 		// 500
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(INTERNAL_SERVER_ERROR - 500)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(INTERNAL_SERVER_ERROR - 500)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
 		return errorhandling.Internal_Server_Error(c, "Internal server error")
 
 	}
@@ -91,16 +91,16 @@ func Alertnetworkcredit(c *fiber.Ctx) error {
 		if network.Filter == "%3D%3D" {
 			Query += " AND (instruction_id = ? OR referenceid = ? OR sender_account = ? OR receiving_account = ?)"
 			CountFilteredQuery += " AND (instruction_id = ? OR reference_id = ? OR sender_account = ? OR receiving_account = ?)"
-			Sourcetxntype = "FRAUD"
-			Trace_alert = "ALERT_FINANCIAL_CRIME"
-			Alerttype = "ACCOUNT_ALERT"
+			SourceTxnType = "FRAUD"
+			TraceAlert = "ALERT_FINANCIAL_CRIME"
+			AlertType = "ACCOUNT_ALERT"
 
 		} else if network.Filter == "%3E%3D" {
 			Query += " AND (instruction_id = '123456789'  OR reference_id = '123456789' OR sender_account = '123456789' OR receiving_account = '123456789')"
 			CountFilteredQuery += " AND (instruction_id = '123456789' OR reference_id = '123456789' OR sender_account = '123456789' OR receiving_account = '123456789')"
-			Sourcetxntype = "FRAUD"
-			Trace_alert = "ALERT_FINANCIAL_CRIME"
-			Alerttype = "ACCOUNT_ALERT"
+			SourceTxnType = "FRAUD"
+			TraceAlert = "ALERT_FINANCIAL_CRIME"
+			AlertType = "ACCOUNT_ALERT"
 
 		} else {
 			Query += " AND (" + network.Filter + ")"
@@ -112,21 +112,21 @@ func Alertnetworkcredit(c *fiber.Ctx) error {
 	// Check if transactions are found
 	if len(transactions) == 0 {
 		//404
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(NOT_FOUND - 404)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(NOT_FOUND - 404)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
 		return errorhandling.Url_Not_Found(c, "No data found for the specified date")
 	}
 
 	// Check if transaction exists and its type
-	exists, err := checktxnidexistalert(transactions[0].Instruction_id)
+	exists, err := checkTxnId_ExistAlert(transactions[0].InstructionId)
 	if err != nil {
 		//500
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, "(INTERNAL_SERVER_ERROR - 500)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(INTERNAL_SERVER_ERROR - 500)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", "FEEDBACK_FINANCIAL_CRIME", "null", "null")
 		return errorhandling.Internal_Server_Error(c, "Error while checking transaction existence")
 	}
 	if exists {
-		Sourcetxntype = "FRAUD"
+		SourceTxnType = "FRAUD"
 	} else {
-		Sourcetxntype = "NONE"
+		SourceTxnType = "NONE"
 	}
 
 	// Prepare response body
@@ -135,12 +135,12 @@ func Alertnetworkcredit(c *fiber.Ctx) error {
 		TransactionAlerts []tracenetwork.Trans_Request `json:"transactionAlerts"`
 	}{
 		Alerts: fiber.Map{
-			"InstructionsID": transactions[0].Instruction_id,
-			"ReferenceID":    transactions[0].Reference_id,
+			"InstructionsID": transactions[0].InstructionId,
+			"ReferenceID":    transactions[0].ReferenceId,
 			"DECISIONDATE":   requestTrigger,
-			"Trace_Type":     Sourcetxntype,
-			"TRACE_ALERT":    Trace_alert,
-			"ALERT_TYPE":     Alerttype,
+			"Trace_Type":     SourceTxnType,
+			"TRACE_ALERT":    TraceAlert,
+			"ALERT_TYPE":     AlertType,
 		},
 		TransactionAlerts: transactions,
 	}
@@ -153,28 +153,28 @@ func Alertnetworkcredit(c *fiber.Ctx) error {
 		// Extract the transaction at index i
 		Errors := errorresp.Errorresponse
 		transaction := transactions[i]
-		Instruction_id := transaction.Instruction_id
-		Reference_id := transaction.Reference_id
-		Receiving_account := transaction.Receiving_account
-		Receiving_name := transaction.Receiving_name
-		Sender_account := transaction.Sender_account
-		Sender_name := transaction.Sender_name
-		Transaction_type := transaction.Transaction_type
+		InstructionId := transaction.InstructionId
+		ReferenceId := transaction.ReferenceId
+		ReceivingAccount := transaction.ReceivingAccount
+		ReceivingName := transaction.ReceivingName
+		SenderAccount := transaction.SenderAccount
+		SenderName := transaction.SenderName
+		TransactionType := transaction.TransactionType
 		Status := transaction.Status
-		Reason_code := transaction.Reason_code
-		Local_instrument := transaction.Local_instrument
-		Sender_bic := transaction.Sender_bic
+		ReasonCode := transaction.ReasonCode
+		LocalInstrument := transaction.LocalInstrument
+		SenderBic := transaction.SenderBic
 		Amount := transaction.Amount
 		Currency := transaction.Currency
-		Receiving_bic := transaction.Receiving_bic
+		ReceivingBic := transaction.ReceivingBic
 
 		message := fmt.Sprintf(" Success %s ", Errors)
-		loggers.Creditransferalertslogs(c.Path(), "folderName", Uniqueidcredittransfer, message, Instruction_id, requestTrigger, Transaction_type, Status, Reason_code, Local_instrument, Reference_id, Sender_bic, Sender_name, Sender_account, Amount, Currency, Receiving_bic, Receiving_name, Receiving_account, Trace_alert, Sourcetxntype, Alerttype)
+		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, message, InstructionId, requestTrigger, TransactionType, Status, ReasonCode, LocalInstrument, ReferenceId, SenderBic, SenderName, SenderAccount, Amount, Currency, ReceivingBic, ReceivingName, ReceivingAccount, TraceAlert, SourceTxnType, AlertType)
 	}
 
 	return c.JSON(responseBody)
 }
-func Iftgeneratealertcredittransfer(length int) string {
+func iftGenerateAlert_CreditTransfer(length int) string {
 	rand.Seed(time.Now().UnixNano())
 
 	hexDigits := "0123456789abcdef"
@@ -185,7 +185,7 @@ func Iftgeneratealertcredittransfer(length int) string {
 	return string(result)
 }
 
-func checktxnidexistalert(Instruction_id string) (bool, error) {
+func checkTxnId_ExistAlert(Instruction_id string) (bool, error) {
 	var count int
 	err := database.DBConn.Raw("SELECT COUNT(*) FROM rbi_instapay.ct_transaction WHERE  instruction_id = ? ", Instruction_id).Scan(&count).Error
 	if err != nil {

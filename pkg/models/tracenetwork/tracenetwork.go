@@ -9,87 +9,63 @@ type (
 		Filter string `json:"filter"`
 	}
 	Trans_Request struct {
-		// Instructionid    string    `json:"instructionid"`
-		// Time             time.Time `josn:"time"`
-		// Transactiontype  string    `json:"transactiontype"`
-		// Status           string    `json:"status"`
-		// Reasoncode       string    `json:"reasoncode"`
-		// Description      string    `json:"description"`
-		// Localinstrument  string    `json:"localinstrument"`
-		// Referenceid      string    `json:"referenceid"`
-		// Senderbic        string    `json:"senderbic"`
-		// Sendername       string    `json:"sendername"`
-		// Senderaccount    string    `json:"senderaccount"`
-		// Amountcurrency   string    `json:"amountcurrency"`
-		// Senderamount     float64   `json:"senderamount"`
-		// Receivingbic     string    `json:"receivingbic"`
-		// Receivingname    string    `json:"receivingname"`
-		// Receivingaccount string    `json:"receivingaccount"`
-
-		Instruction_id       string  `json:"instruction_id"`
-		Transaction_datetime string  `josn:"transaction_datetime"`
-		Transaction_type     string  `json:"transaction_type"`
-		Status               string  `json:"status"`
-		Reason_code          string  `json:"reason_code"`
-		Local_instrument     string  `json:"local_instrument"`
-		Reference_id         string  `json:"reference_id"`
-		Sender_bic           string  `json:"sender_bic"`
-		Sender_name          string  `json:"sender_name"`
-		Sender_account       string  `json:"sender_account"`
-		Amount               float64 `json:"amount"`
-		Currency             string  `json:"currency"`
-		Receiving_bic        string  `json:"receiving_bic"`
-		Receiving_name       string  `json:"receiving_name"`
-		Receiving_account    string  `json:"receiving_account"`
+		InstructionId       string  `json:"instructionId"`
+		TransactionDatetime string  `josn:"transactionDatetime"`
+		TransactionType     string  `json:"transactionType"`
+		Status              string  `json:"status"`
+		ReasonCode          string  `json:"reasonCode"`
+		LocalInstrument     string  `json:"localInstrument"`
+		ReferenceId         string  `json:"referenceId"`
+		SenderBic           string  `json:"senderBic"`
+		SenderName          string  `json:"senderName"`
+		SenderAccount       string  `json:"senderAccount"`
+		Amount              float64 `json:"amount"`
+		Currency            string  `json:"currency"`
+		ReceivingBic        string  `json:"receivingBic"`
+		ReceivingName       string  `json:"receivingName"`
+		ReceivingAccount    string  `json:"receivingAccount"`
 	}
 
 	Credit_transfer struct {
-		// Instruction_id    string `json:"instruction_id"`
-		// Reference_id      string `json:"reference_id"`
-		// Receiving_account string `json:"receiving_account"`
-		// Receiving_name    string `json:"receiving_name"`
-		// Sender_account    string `json:"sender_account"`
-		// Sender_name       string `json:"sender_name"`
-		// Filter           string `json:"filter"`
-		Instruction_id    string `json:"instruction_id"`
-		Reference_id      string `json:"reference_id"`
-		Receiving_account string `json:"receiving_account"`
-		Receiving_name    string `json:"receiving_name"`
-		Sender_account    string `json:"sender_account"`
-		Sender_name       string `json:"sender_name"`
-		Filter            string `json:"filter"`
+		InstructionId    string `json:"instructionId"`
+		ReferenceId      string `json:"referenceId"`
+		ReceivingAccount string `json:"receivingAccount"`
+		ReceivingName    string `json:"receivingName"`
+		SenderAccount    string `json:"senderAccount"`
+		SenderName       string `json:"senderName"`
+		Filter           string `json:"filter"`
 	}
 
 	Credittransfer_feedback struct {
-		Uniqueidcredittransfer string `json:"uniqueidcredittransfer"`
-		Alerttype              string `json:"alerttype"`
-		Tracetype              string `json:"tracetype"`
-		Trace_alert            string `json:"trace_alert"`
+		UniqueidCredittransfer string `json:"uniqueidCredittransfer"`
+		AlertType              string `json:"alertType"`
+		TraceType              string `json:"traceType"`
+		TraceAlert             string `json:"traceAlert"`
 	}
 
 	Credittransfer_feedback_response struct {
-		Uniqueidcredittransfer string `json:"uniqueidcredittransfer"`
+		UniqueidCredittransfer string `json:"uniqueidCredittransfer"`
 		Message                string `json:"message"`
-		Trace_alert            string `json:"trace_alert"`
-		Sourcetxntype          string `json:"sourcetxntype"`
-		Transaction_type       string `json:"transaction_type"`
+		TraceAlert             string `json:"traceAlert"`
+		SourceTxnType          string `json:"sourceTxnType"`
+		TransactionType        string `json:"transactionType"`
 		Status                 string `json:"status"`
-		Reason_code            string `json:"reason_code"`
-		Local_instrument       string `json:"local_instrument"`
-		Instruction_id         string `json:"instruction_id"`
-		Reference_id           string `json:"reference_id"`
-		Alerttype              string `json:"alerttype"`
-		Requesttrigger         string `json:"requesttrigger"`
+		ReasonCode             string `json:"reasonCode"`
+		LocalInstrument        string `json:"localInstrument"`
+		InstructionId          string `json:"instructionId"`
+		ReferenceId            string `json:"referenceId"`
+		AlertType              string `json:"alertType"`
+		RequestTrigger         string `json:"requestTrigger"`
 	}
 
 	Errorlog struct {
 		ID          int       `json:"id"`
-		ErrorCode   string    `json:"errorcode"`
+		ErrorCode   string    `json:"errorCode"`
 		Source      string    `json:"source"`
-		ReasonCode  string    `json:"reasoncode"`
+		ReasonCode  string    `json:"reasonCode"`
 		Description string    `json:"description"`
 		Recoverable bool      `json:"recoverable"`
 		Details     string    `json:"details"`
-		CreatedAt   time.Time `json:"createdat"`
+		CreatedAt   time.Time `json:"createdAt"`
 	}
 )

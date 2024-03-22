@@ -10,6 +10,7 @@ import (
 	notifications "tracealert/notifications"
 	"tracealert/pkg/controllers/healthchecks"
 	"tracealert/traceandalert"
+	traceCode "tracealert/traceandalert/traceCode"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -120,13 +121,13 @@ func SetupPublicRoutes(app *fiber.App) {
 
 	app.Post("/try", credittransfer.RunTraceService)
 
-	app.Post("/Trace_credit", traceandalert.Tracenetworkcred)
-	app.Post("/Alert_credit", traceandalert.Alertnetworkcredit)
-	app.Post("/Matchesid_credit", traceandalert.Matchesidcredit)
-	app.Post("/Feedbackid_credit", traceandalert.Feedbackcredit)
+	app.Post("/Trace_credit", traceandalert.TracenetworkCred)
+	app.Post("/Alert_credit", traceandalert.AlertnetworkCredit)
+	app.Post("/Matchesid_credit", traceandalert.MatchesidCredit)
+	app.Post("/Feedbackid_credit", traceandalert.FeedbackCredit)
 
-	app.Post("/Alertaccount_credit", traceandalert.Alertaccount_Credittransfer)
-	app.Post("/Alerttransaction_credit", traceandalert.Alerttransaction_Credittransfer)
+	app.Post("/Alertaccount_credit", traceCode.Alertaccount_Credittransfer)
+	app.Post("/Alerttransaction_credit", traceCode.Alerttransaction_Credittransfer)
 	app.Post("/trace_trans_PostmanMobilephoneBrowser", traceandalert.TracetransPostmanMobilephoneBrowser)
 
 	//------------------------------Notifications

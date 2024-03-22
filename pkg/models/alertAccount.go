@@ -5,7 +5,7 @@ import "time"
 type RequestBodyalert struct {
 	Since           string `json:"since"`
 	Limit           int    `json:"limit"`
-	Paginationtoken string `json:"paginationtoken"`
+	PaginationToken string `json:"paginationToken"`
 	Filter          string `json:"filter"`
 }
 
@@ -40,37 +40,37 @@ type AlertStruct struct {
 
 type Alert struct {
 	ID                           string    `json:"id"`
-	Networkalertid               string    `json:"networkalertid"`
-	Accountid                    string    `json:"accountid"`
-	Networkid                    string    `json:"networkid"`
-	Owningbankid                 string    `json:"owningbankid"`
-	Owningbankname               string    `json:"owningbankname"`
+	NetworkalertId               string    `json:"networkalertId"`
+	AccountId                    string    `json:"accountId"`
+	NetworkId                    string    `json:"networkId"`
+	OwningbankId                 string    `json:"owningbankId"`
+	OwningbankName               string    `json:"owningbankName"`
 	Time                         time.Time `json:"time"`
 	Name                         string    `json:"name"`
-	Mulescore                    float64   `json:"muleScore"`
-	Sourcetransactionvalue       int       `json:"sourcetransactionvalue"`
-	Endpointflag                 bool      `json:"endpointflag"`
-	Numoutboundrelationships     int       `json:"numoutboundrelationships"`
-	Numinboundrelationships      int       `json:"numinboundrelationships"`
-	Numscheduledmandates         int       `json:"numscheduledmandates"`
-	Firstappearance              time.Time `json:"firstappearance"`
-	Mostrecentappearance         time.Time `json:"mostrecentappearance"`
-	Firsttransactiontime         time.Time `json:"firsttransactiontime"`
-	Mostrecenttransactiontime    time.Time `json:"mostrecenttransactiontime"`
-	Receivessalary               bool      `json:"receivessalary"`
-	Dwelltime                    string    `json:"dwelltime"`
-	Numnetworks                  int       `json:"numnetworks"`
-	Numtracednetworks            int       `json:"numtracednetworks"`
+	MuleScore                    float64   `json:"muleScore"`
+	SourcetransactionValue       int       `json:"sourcetransactionValue"`
+	EndpointFlag                 bool      `json:"endpointFlag"`
+	NumoutboundRelationships     int       `json:"numoutboundRelationships"`
+	NuminboundRelationships      int       `json:"numinboundRelationships"`
+	NumscheduledMandates         int       `json:"numscheduledMandates"`
+	FirstAppearance              time.Time `json:"firstAppearance"`
+	MostrecentAppearance         time.Time `json:"mostrecentAppearance"`
+	FirstTransactiontime         time.Time `json:"firstTransactiontime"`
+	MostrecentTransactiontime    time.Time `json:"mostrecentTransactiontime"`
+	ReceivesSalary               bool      `json:"receivesSalary"`
+	DwellTime                    string    `json:"dwellTime"`
+	NumNetworks                  int       `json:"numNetworks"`
+	NumtracedNetworks            int       `json:"numtracedNetworks"`
 	Generation                   int       `json:"generation"`
 	Tracetype                    string    `json:"traceType"`
-	Totalsuspiciousvalueinbound  int       `json:"totalsuspiciousvalueinbound"`
-	Totalsuspiciousvalueoutbound int       `json:"totalsuspiciousvalueoutbound"`
-	Totalvalueinbound            int       `json:"totalvalueinbound"`
-	Totalvalueoutbound           int       `json:"totalvalueoutbound"`
+	TotalsuspiciousValueinbound  int       `json:"totalsuspiciousValueinbound"`
+	TotalsuspiciousValueoutbound int       `json:"totalsuspiciousValueoutbound"`
+	TotalvalueInbound            int       `json:"totalvalueInbound"`
+	TotalvalueOutbound           int       `json:"totalvalueOutbound"`
 	Generations                  []int     `json:"generations"`
-	Mostrecentfeedback           string    `json:"mostrecentfeedback"`
-	Parentalertid                string    `json:"parentalertid"`
-	Decisiondate                 time.Time `json:"decisiondate"`
-	Nextpaginationtoken          string    `json:"nextpaginationtoken"`
-	Previouspaginationtoken      string    `json:"previouspaginationtoken"`
+	MostrecentFeedback           string    `json:"mostrecentFeedback"`
+	ParentalertId                string    `json:"parentalertId"`
+	DecisionDate                 time.Time `json:"decisionDate"`
+	NextpaginationToken          string    `json:"nextpaginationToken"`
+	PreviouspaginationToken      string    `json:"previouspaginationToken"`
 }

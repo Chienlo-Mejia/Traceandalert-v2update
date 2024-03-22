@@ -11,7 +11,7 @@ func OK_Response(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '200'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '200'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -40,7 +40,7 @@ func Bad_Request(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '400'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '400'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -80,7 +80,7 @@ func Unauthorized(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '401'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '401'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -121,7 +121,7 @@ func Permision_Denied(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '403'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '403'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -161,7 +161,7 @@ func Url_Not_Found(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '404'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '404'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -201,7 +201,7 @@ func Method_Not_Allowed(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '405'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '405'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -241,7 +241,7 @@ func Conflict(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '409'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '409'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -281,7 +281,7 @@ func Unsupported_Media_Type(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '415'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '415'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -321,7 +321,7 @@ func Unprocessable_Entity(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '422'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '422'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -361,7 +361,7 @@ func Rate_Limit_Exceeded(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '429'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '429'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -401,7 +401,7 @@ func Internal_Server_Error(c *fiber.Ctx, details string) error {
 	// Create an instance of errors.Error_code
 	errorLogs := &errors.Errorcode{}
 
-	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.errorlogs WHERE errorcode = '500'`).First(errorLogs).Error
+	err := database.DBConn.Debug().Raw(`SELECT * FROM trace_alerts.error_logs WHERE errorcode = '500'`).First(errorLogs).Error
 	if err != nil {
 		// Handle the error when fetching data from the database
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{

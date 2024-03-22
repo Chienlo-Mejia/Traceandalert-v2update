@@ -138,37 +138,37 @@ func Alertsaccount(c *fiber.Ctx) error {
 
 		ID := transactions[i].ID
 		Errors := errorresp.Errorresponse
-		Networkalertid := transactions[i].Networkalertid
-		Accountid := transactions[i].Accountid
-		Networkid := transactions[i].Networkid
-		Owningbankid := transactions[i].Owningbankid
-		Owningbankname := transactions[i].Owningbankname
+		Networkalertid := transactions[i].NetworkalertId
+		Accountid := transactions[i].AccountId
+		Networkid := transactions[i].NetworkId
+		Owningbankid := transactions[i].OwningbankId
+		Owningbankname := transactions[i].OwningbankName
 		Time := transactions[i].Time
 		Name := transactions[i].Name
-		Mulescore := transactions[i].Mulescore
-		Sourcetransactionvalue := transactions[i].Sourcetransactionvalue
-		Endpointflag := transactions[i].Endpointflag
-		Numoutboundrelationships := transactions[i].Numoutboundrelationships
-		Numinboundrelationships := transactions[i].Numinboundrelationships
-		Numscheduledmandates := transactions[i].Numscheduledmandates
-		Firstappearance := transactions[i].Firstappearance
-		Mostrecentappearance := transactions[i].Mostrecentappearance
-		Receivessalary := transactions[i].Receivessalary
-		Dwelltime := transactions[i].Dwelltime
-		Numnetworks := transactions[i].Numnetworks
-		Numtracednetworks := transactions[i].Numtracednetworks
+		Mulescore := transactions[i].MuleScore
+		Sourcetransactionvalue := transactions[i].SourcetransactionValue
+		Endpointflag := transactions[i].EndpointFlag
+		Numoutboundrelationships := transactions[i].NumoutboundRelationships
+		Numinboundrelationships := transactions[i].NuminboundRelationships
+		Numscheduledmandates := transactions[i].NumscheduledMandates
+		Firstappearance := transactions[i].FirstAppearance
+		Mostrecentappearance := transactions[i].MostrecentAppearance
+		Receivessalary := transactions[i].ReceivesSalary
+		Dwelltime := transactions[i].DwellTime
+		Numnetworks := transactions[i].NumNetworks
+		Numtracednetworks := transactions[i].NumtracedNetworks
 		Generation := transactions[i].Generation
 		Tracetype := transactions[i].Tracetype
-		Totalsuspiciousvalueinbound := transactions[i].Totalsuspiciousvalueinbound
-		Totalsuspiciousvalueoutbound := transactions[i].Totalsuspiciousvalueoutbound
-		Totalvalueinbound := transactions[i].Totalvalueinbound
-		Totalvalueoutbound := transactions[i].Totalvalueoutbound
+		Totalsuspiciousvalueinbound := transactions[i].TotalsuspiciousValueinbound
+		Totalsuspiciousvalueoutbound := transactions[i].TotalsuspiciousValueoutbound
+		Totalvalueinbound := transactions[i].TotalvalueInbound
+		Totalvalueoutbound := transactions[i].TotalvalueOutbound
 		Generations := transactions[i].Generations
-		Mostrecentfeedback := transactions[i].Mostrecentfeedback
-		Parentalertid := transactions[i].Parentalertid
-		Decisiondate := transactions[i].Decisiondate
-		Nextpaginationtoken := transactions[i].Nextpaginationtoken
-		Previouspaginationtoken := transactions[i].Previouspaginationtoken
+		Mostrecentfeedback := transactions[i].MostrecentFeedback
+		Parentalertid := transactions[i].ParentalertId
+		Decisiondate := transactions[i].DecisionDate
+		Nextpaginationtoken := transactions[i].NextpaginationToken
+		Previouspaginationtoken := transactions[i].PreviouspaginationToken
 
 		message := fmt.Sprintf(" Success %s ", Errors)
 		loggers.Alertaccount(c.Path(), "folderName", Uniqueidalertaccount, ID, message, Networkalertid, Accountid, Networkid, Owningbankid, Owningbankname, Time, Name, Mulescore, Sourcetransactionvalue, Endpointflag, Numoutboundrelationships, Numinboundrelationships, Numscheduledmandates, Firstappearance, Mostrecentappearance, Receivessalary, Dwelltime, Numnetworks, Numtracednetworks, Generation, Tracetype, Totalsuspiciousvalueinbound, Totalsuspiciousvalueoutbound, Totalvalueinbound, Totalvalueoutbound, Generations, Mostrecentfeedback, Parentalertid, Decisiondate, Nextpaginationtoken, Previouspaginationtoken)
@@ -186,8 +186,8 @@ func Alertsaccount(c *fiber.Ctx) error {
 		Alerts: fiber.Map{
 			"totalRecords":            count,
 			"displayedRecords":        userRequest.Limit,
-			"nextPaginationToken":     transactions[0].Nextpaginationtoken,
-			"previousPaginationToken": transactions[0].Previouspaginationtoken,
+			"nextPaginationToken":     transactions[0].NextpaginationToken,
+			"previousPaginationToken": transactions[0].PreviouspaginationToken,
 			// "referenceID":             Referenceid,
 			// "generateID":              Generateid,
 		},
