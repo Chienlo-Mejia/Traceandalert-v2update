@@ -7,13 +7,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// func ShowPage(c *fiber.Ctx) error {
+func ShowPage1(c *fiber.Ctx) error {
 
-// 	return c.Render("index", fiber.Map{
-// 		"titlePage": "SAMPLE PAGE",
-// 	})
+	return c.Render("locationDetect", fiber.Map{
+		"titlePage": "SAMPLE PAGE",
+	})
 
-// }
+}
 
 func ShowPage(c *fiber.Ctx) error {
 	ctResult := &[]tracenetwork.Errorlog{}

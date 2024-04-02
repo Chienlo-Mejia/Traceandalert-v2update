@@ -13,6 +13,7 @@ type (
 		Transactionamount      float64 `json:"transactionamount"`
 		Transactioncharge      float64 `json:"transactioncharge"`
 	}
+
 	Trans_Request struct {
 		Instructionid    string    `json:"instructionid"`
 		Transactiontype  string    `json:"transactiontype"`

@@ -41,3 +41,5 @@ func TracetransPostmanMobilephoneBrowser(c *fiber.Ctx) error {
 
 	return c.JSON(transactions)
 }
+
+// var Alerttype string

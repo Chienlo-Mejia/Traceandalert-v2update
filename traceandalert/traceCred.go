@@ -46,19 +46,42 @@ func TracenetworkCred(c *fiber.Ctx) error {
 		CountFilteredQuery += " AND DATE_TRUNC('day', ft_date) = ?"
 	}
 
+	dailyTransactionAmounts := make(map[string]float64)
+	if userresponse.Amount > 0 {
+		currentDate := time.Now().Format("2006-01-02")
+		if amount, ok := dailyTransactionAmounts[currentDate]; ok {
+			if amount+userresponse.Amount > 50000 {
+				userresponse.Amount = 0
+			} else {
+				dailyTransactionAmounts[currentDate] += userresponse.Amount
+			}
+		} else {
+			dailyTransactionAmounts[currentDate] = userresponse.Amount
+		}
+	}
+
 	if userRequest.Filter != "" {
 		if userRequest.Filter == "%3D%3D" {
-			// Adjusted condition for maximum transaction amount of $50,000
 			Query += " AND (amount > 50000 OR amount < 100 OR currency = 'USDT' ) "
 			CountFilteredQuery += " AND (amount > 50000 OR amount < 100 OR currency = 'USDT' )"
+
 			Sourcetxntype = "FRAUD"
 			Trace_alert = "TRACE_FINANCIAL_CRIME"
 			Alerttype = "NETWORK_ALERT"
-
 		} else {
+			Query += " AND ("
+			Query += userRequest.Filter
+			Query += " OR ("
+			Query += "(hour(transaction_timestamp) < 6 OR hour(transaction_timestamp) > 23)"
 			Query += " AND (" + userRequest.Filter + ")"
-			CountFilteredQuery += " AND (" + userRequest.Filter + ")"
+			Query += "))"
 
+			CountFilteredQuery += " AND ("
+			CountFilteredQuery += userRequest.Filter
+			CountFilteredQuery += " OR ("
+			CountFilteredQuery += "(hour(transaction_timestamp) < 6 OR hour(transaction_timestamp) > 23)"
+			CountFilteredQuery += " AND (" + userRequest.Filter + ")"
+			CountFilteredQuery += "))"
 		}
 	}
 

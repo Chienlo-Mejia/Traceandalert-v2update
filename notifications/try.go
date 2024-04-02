@@ -1,33 +1,30 @@
 package email
 
-import (
-	"fmt"
-	"net"
+type Transaction struct {
+	Amount   float64
+	Location string
+}
 
-	"github.com/oschwald/geoip2-golang"
-)
+func DetectGeographicalAnomalies(transactions []Transaction) []Transaction {
+	var unusualTransactions []Transaction
+	locationCounts := make(map[string]int)
 
-func getClientLocation(ipAddress string) (string, error) {
-	// Open the GeoIP2 database
-	db, err := geoip2.Open("GeoLite2-City.mmdb")
-	if err != nil {
-		return "", err
-	}
-	defer db.Close()
-
-	// Parse the IP address
-	ip := net.ParseIP(ipAddress)
-	if ip == nil {
-		return "", fmt.Errorf("invalid IP address: %s", ipAddress)
+	// Count occurrences of each location
+	for _, transaction := range transactions {
+		locationCounts[transaction.Location]++
 	}
 
-	// Retrieve location data for the IP address
-	record, err := db.City(ip)
-	if err != nil {
-		return "", err
+	// Identify locations with significantly fewer transactions
+	for location, count := range locationCounts {
+		// You can adjust the threshold as needed
+		if count <= 1 {
+			for _, transaction := range transactions {
+				if transaction.Location != location {
+					unusualTransactions = append(unusualTransactions, transaction)
+				}
+			}
+		}
 	}
 
-	// Construct location string
-	location := fmt.Sprintf("%s, %s", record.City.Names["en"], record.Country.Names["en"])
-	return location, nil
+	return unusualTransactions
 }

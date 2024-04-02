@@ -553,12 +553,12 @@ func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, mes
 
 func Detectpostmanlogs(class, folder, message string, requestTrigger time.Time) {
 	currentTime := time.Now()
-	folderName := fmt.Sprintf("./logs/DetectPostman/%s/%s", folder, currentTime.Format("01-January"))
+	folderName := fmt.Sprintf("./logs/DetectPostmanMobileBrowser/%s/%s", folder, currentTime.Format("01-January"))
 	if err := os.MkdirAll(folderName, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/DetectPostman%s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/DetectPostmanMobileBrowser%s.log", folderName, currentTime.Format("2006-01-02"))
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatalf("Error opening log file: %v", err)

@@ -11,11 +11,7 @@ type Errorresp struct {
 }
 
 type Errorcode struct {
-	Id          int    `json:"id"`
-	Source      string `json:"source"`
-	Reasoncode  string `json:"reasoncode"`
+	Code        string `json:"reasoncode"`
 	Description string `json:"description"`
-	Recoverable bool   `json:"recoverable"`
-	Details     string `json:"details"`
-	Errorcode   string `json:"errorcode"`
+	Service     string `json:"service"`
 }

@@ -1,13 +1,16 @@
 package routers
 
 import (
+	"crypto/rand"
+	"encoding/base64"
 	"fmt"
 	"strings"
 	"time"
 	"tracealert/controller"
-	"tracealert/credittransfer"
 	"tracealert/middleware/loggers"
 	notifications "tracealert/notifications"
+	token "tracealert/token"
+
 	"tracealert/pkg/controllers/healthchecks"
 	"tracealert/traceandalert"
 	traceCode "tracealert/traceandalert/traceCode"
@@ -15,48 +18,60 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+var browserSessions = make(map[string]bool)
+
 func SetupPublicRoutes(app *fiber.App) {
 
-	//--------------------------------------------- Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER)
-	var browserDetected bool
+	//--------------------------------------------- Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) ---------------------------
 	app.Use(func(c *fiber.Ctx) error {
 		userAgent := c.Get("User-Agent")
 		requestPath := c.Path()
 		requestTrigger := time.Now()
 
-		// Postman
+		getSessionID := func() string {
+			id := make([]byte, 16)
+			_, err := rand.Read(id)
+			if err != nil {
+				return time.Now().Format(time.RFC3339Nano)
+			}
+			return base64.URLEncoding.EncodeToString(id)
+		}
+
+		//--------------------------- Postman ---------------------------
 		if (requestPath == "/Email" || requestPath == "/Alert_credit") && userAgent != "" && (strings.Contains(userAgent, "Postman") || strings.Contains(userAgent, "PostmanRuntime")) {
 			fmt.Printf("Request from Postman detected for the %s endpoint!\n", requestPath)
-
 			loggers.Detectpostmanlogs(requestPath, "folderName", fmt.Sprintf("Transaction detected in POSTMAN from the endpoint of %s!", requestPath), requestTrigger)
 			c.SendString(fmt.Sprintf("Transaction detected in Go for the %s endpoint!", requestPath))
 		}
-
-		// Flutter app
+		//--------------------------- Flutter App ---------------------------
 		if strings.Contains(userAgent, "Dart/3.1 (dart:io)") {
 			deviceId := c.Get("Device-ID")
 			if deviceId != "" {
 				fmt.Printf("Request from Flutter app detected for the %s endpoint! Device ID: %s\n", requestPath, deviceId)
 				loggers.Detectpostmanlogs(requestPath, "folderName", fmt.Sprintf("Transaction detected in MOBILEPHONE from the Device-ID %s!", deviceId), requestTrigger)
 			} else {
-				fmt.Printf("Request from Flutter app detected for the %s endpoint, but no Device-ID header found! %s\n", requestPath, deviceId)
+				fmt.Printf("Request from Flutter app detected for the %s endpoint, but no Device-ID header found!\n", requestPath)
 				loggers.Detectpostmanlogs(requestPath, "folderName", fmt.Sprintf("Transaction detected in MOBILEPHONE, but no Device-ID header found for endpoint %s!", requestPath), requestTrigger)
 			}
+			return nil
 		}
 
-		// Browser
+		//--------------------------- Browser ---------------------------
 		if (requestPath == "/Email" || requestPath == "/Alert_credit") &&
-			(strings.Contains(userAgent, "Mozilla") || strings.Contains(userAgent, "Chrome") || strings.Contains(userAgent, "Safari")) &&
-			!browserDetected {
-			fmt.Printf("Request from a browser detected for the %s endpoint!\n", requestPath)
-			loggers.Detectpostmanlogs(requestPath, "folderName", fmt.Sprintf("Transaction detected in BROWSER for the %s endpoint!", requestPath), requestTrigger)
-			browserDetected = true // Set the flag to true
+			(strings.Contains(userAgent, "Mozilla") || strings.Contains(userAgent, "Chrome") || strings.Contains(userAgent, "Safari")) {
+			sessionID := getSessionID()
+			if !browserSessions[sessionID] {
+				fmt.Printf("Request from a browser detected for the %s endpoint!\n", requestPath)
+				loggers.Detectpostmanlogs(requestPath, "folderName", fmt.Sprintf("Transaction detected in BROWSER for the %s endpoint!", requestPath), requestTrigger)
+				browserSessions[sessionID] = true
+			}
+			return nil
 		}
 
 		return c.Next()
 	})
 
-	//--------------------------- Endpoint ------------------------------//
+	//--------------------------------------------- Endpoint ---------------------------------------------//
 
 	// Endpoints
 	apiEndpoint := app.Group("/api")
@@ -114,12 +129,17 @@ func SetupPublicRoutes(app *fiber.App) {
 
 	webEnpoint.Get("/Credit_transfer", healthchecks.Credittransferinfo)
 	webEnpoint.Get("/Feedback_Credittransfer", healthchecks.FeedbackCredittransferinfo)
+	webEnpoint.Get("/TracePostmanMobileBrowser", healthchecks.TracePostmanMobileBrowser)
 
-	//----------------------------- CREDIT TRANSFER
-	app.Post("/TransferAccount", credittransfer.TransferAccount)
-	app.Post("/Token", credittransfer.Generateandsettoken)
+	webEnpoint.Get("/location", controller.ShowPage1)
 
-	app.Post("/try", credittransfer.RunTraceService)
+	//----------------------------- CREDIT TRANSFER -------------
+	app.Post("/TransferAccount", token.TransferAccount)
+
+	app.Post("/Token", token.Generateandsettoken)
+
+	app.Post("/ip-details", token.Handledetails)
+	// app.Post("/try", credittransfer.RunTraceService)
 
 	app.Post("/Trace_credit", traceandalert.TracenetworkCred)
 	app.Post("/Alert_credit", traceandalert.AlertnetworkCredit)
@@ -130,28 +150,12 @@ func SetupPublicRoutes(app *fiber.App) {
 	app.Post("/Alerttransaction_credit", traceCode.Alerttransaction_Credittransfer)
 	app.Post("/trace_trans_PostmanMobilephoneBrowser", traceandalert.TracetransPostmanMobilephoneBrowser)
 
-	//------------------------------Notifications
+	//------------------------------ Notifications -------------
 	app.Post("/Email", notifications.Email)
 	app.Post("/Sms", notifications.Sms)
 	app.Post("/Sms_telerivet", notifications.Sms_telerivet)
-	// app.Post("/trace_location", notifications.Getclientlocation)
 
-	// v1Endpoint.Post("/feedback", healthchecks.Feedback)
-
-	// v1Endpoint.Post("/accounts", healthchecks.Alertsaccount)
-	// v1Endpoint.Post("/transactions", healthchecks.Alerttransaction)
-	// v1Endpoint.Post("/networks", healthchecks.Alertnetwork)
-
-	// v1Endpoint.Post("/txn_alert_id", healthchecks.GetTransacInfo)
-	// v1Endpoint.Post("/account_alert_id", healthchecks.GetAccInfo)
-	// v1Endpoint.Post("/network_alert_id", healthchecks.GetNetworkInfo)
-
-	// v1Endpoint.Post("/network", healthchecks.NetworkAlertID)
-	// v1Endpoint.Post("/tracenetwork", healthchecks.Tracenetwork)
-
-	// v1Endpoint.Post("/Transactionidmatches", healthchecks.Transactionidmatches)
-
-	//--------------- Encrypt & decrypt -------------
+	//------------------------------  Encrypt & decrypt -------------
 	app.Post("/Encrypt", notifications.Encryptdata)
 	app.Post("/Decrypt", notifications.Decryptdata)
 

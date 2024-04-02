@@ -92,6 +92,11 @@ type LogsFeedback_credittransfer struct {
 	AlertType              string `json:"alertType"`
 	Feedback               string `json:"feedback"`
 }
+type TraceInfo struct {
+	Id             string `json:"id"`
+	Message        string `json:"message"`
+	Requesttrigger string `json:"requesttrigger"`
+}
 
 func Feedbackinfo(c *fiber.Ctx) error {
 	ctResult := &[]Logsfeedback{}
@@ -168,4 +173,14 @@ func ShowPage(c *fiber.Ctx) error {
 		"titlePage": "SAMPLE PAGE",
 	})
 
+}
+
+func TracePostmanMobileBrowser(c *fiber.Ctx) error {
+	ctResult := &[]TraceInfo{}
+	database.DBConn.Raw("SELECT * FROM trace_alerts.logstracetrans_postmanmobilephonebrowser WHERE 1=1 ").Scan(ctResult)
+
+	return c.Render("tracePostmanMobileBrowser", fiber.Map{
+		"title":      "TracePostmanMobileBrowser",
+		"ctResponse": ctResult,
+	})
 }
