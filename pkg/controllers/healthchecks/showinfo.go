@@ -91,6 +91,7 @@ type LogsFeedback_credittransfer struct {
 	RequestTrigger         string `json:"requestTrigger"`
 	AlertType              string `json:"alertType"`
 	Feedback               string `json:"feedback"`
+	Lock                   string `json:"lock"`
 }
 type TraceInfo struct {
 	Id             string `json:"id"`

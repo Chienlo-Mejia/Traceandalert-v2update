@@ -76,6 +76,7 @@
                     <th><small>INSTRUCTION_ID</small></th>
                     <th><small>REFERENCEID</small></th>
                     <th><small>DECISIONDATE</small></th>
+                    <th><small>MULE_LOCK</small></th>
 
                 </tr>
             </thead>
@@ -97,10 +98,12 @@
                     <td>{{.InstructionId}}</td>
                     <td>{{.ReferenceId}}</td>
                     <td>{{.RequestTrigger}}</td>
+                    <td class="{{if eq .Lock "lock"}}text-danger{{else if eq .Lock "unlock"}}text-success{{else if eq .Unlock "unlock"}}text-danger{{end}}">
+                        {{.Lock}}
+                    </td>
                 </tr>
                 {{end}}
             </tbody>
-            
         </table>
     </div>
 

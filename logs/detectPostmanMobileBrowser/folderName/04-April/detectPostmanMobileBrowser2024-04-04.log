@@ -1,0 +1,50 @@
+2024/04/04 11:10:04 
+INFO: 2024/04/04 11:10:04                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:10:04 Message: Transaction detected in POSTMAN from the endpoint of /Email!
+INFO: 2024/04/04 11:10:04 Date_Time: 2024-04-04 11:10:04.476483 +0800 PST m=+71.987285001
+2024/04/04 11:10:04 
+2024/04/04 11:17:56 
+INFO: 2024/04/04 11:17:56                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:17:56 Message: Transaction detected in POSTMAN from the endpoint of /Email!
+INFO: 2024/04/04 11:17:56 Date_Time: 2024-04-04 11:17:56.577111 +0800 PST m=+544.073751168
+2024/04/04 11:17:56 
+2024/04/04 11:18:17 
+INFO: 2024/04/04 11:18:17                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:18:17 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/04/04 11:18:17 Date_Time: 2024-04-04 11:18:17.343548 +0800 PST m=+564.839564543
+2024/04/04 11:18:17 
+2024/04/04 11:18:26 
+INFO: 2024/04/04 11:18:26                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:18:26 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/04/04 11:18:26 Date_Time: 2024-04-04 11:18:26.14464 +0800 PST m=+573.642644918
+2024/04/04 11:18:26 
+2024/04/04 11:18:34 
+INFO: 2024/04/04 11:18:34                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:18:34 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/04/04 11:18:34 Date_Time: 2024-04-04 11:18:34.042229 +0800 PST m=+581.546491709
+2024/04/04 11:18:34 
+2024/04/04 11:21:01 
+INFO: 2024/04/04 11:21:01                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:21:01 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/04/04 11:21:01 Date_Time: 2024-04-04 11:21:01.838588 +0800 PST m=+729.349641543
+2024/04/04 11:21:01 
+2024/04/04 11:21:41 
+INFO: 2024/04/04 11:21:41                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:21:41 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/04/04 11:21:41 Date_Time: 2024-04-04 11:21:41.633138 +0800 PST m=+769.143427043
+2024/04/04 11:21:41 
+2024/04/04 11:27:44 
+INFO: 2024/04/04 11:27:44                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:27:44 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/04/04 11:27:44 Date_Time: 2024-04-04 11:27:44.090663 +0800 PST m=+1131.593981126
+2024/04/04 11:27:44 
+2024/04/04 11:27:56 
+INFO: 2024/04/04 11:27:56                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:27:56 Message: Transaction detected in POSTMAN from the endpoint of /Email!
+INFO: 2024/04/04 11:27:56 Date_Time: 2024-04-04 11:27:56.250579 +0800 PST m=+1143.753663168
+2024/04/04 11:27:56 
+2024/04/04 11:28:12 
+INFO: 2024/04/04 11:28:12                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 11:28:12 Message: Transaction detected in MOBILEPHONE from the Device-ID f50f5782db5787db!
+INFO: 2024/04/04 11:28:12 Date_Time: 2024-04-04 11:28:12.368177 +0800 PST m=+1159.870952043
+2024/04/04 11:28:12 

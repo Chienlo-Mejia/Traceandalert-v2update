@@ -9,11 +9,10 @@ import (
 	"tracealert/controller"
 	"tracealert/middleware/loggers"
 	notifications "tracealert/notifications"
-	token "tracealert/token"
-
 	"tracealert/pkg/controllers/healthchecks"
-	"tracealert/traceandalert"
-	traceCode "tracealert/traceandalert/traceCode"
+	token "tracealert/token"
+	traceandalert "tracealert/traceAlert"
+	traceCode "tracealert/traceAlert/traceCode"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -43,7 +42,7 @@ func SetupPublicRoutes(app *fiber.App) {
 			loggers.Detectpostmanlogs(requestPath, "folderName", fmt.Sprintf("Transaction detected in POSTMAN from the endpoint of %s!", requestPath), requestTrigger)
 			c.SendString(fmt.Sprintf("Transaction detected in Go for the %s endpoint!", requestPath))
 		}
-		//--------------------------- Flutter App ---------------------------
+		//--------------------------- Flutter app ---------------------------
 		if strings.Contains(userAgent, "Dart/3.1 (dart:io)") {
 			deviceId := c.Get("Device-ID")
 			if deviceId != "" {
@@ -56,7 +55,7 @@ func SetupPublicRoutes(app *fiber.App) {
 			return nil
 		}
 
-		//--------------------------- Browser ---------------------------
+		//--------------------------- Browser
 		if (requestPath == "/Email" || requestPath == "/Alert_credit") &&
 			(strings.Contains(userAgent, "Mozilla") || strings.Contains(userAgent, "Chrome") || strings.Contains(userAgent, "Safari")) {
 			sessionID := getSessionID()
@@ -71,7 +70,7 @@ func SetupPublicRoutes(app *fiber.App) {
 		return c.Next()
 	})
 
-	//--------------------------------------------- Endpoint ---------------------------------------------//
+	//--------------------------- Endpoint ------------------------------//
 
 	// Endpoints
 	apiEndpoint := app.Group("/api")
@@ -89,15 +88,15 @@ func SetupPublicRoutes(app *fiber.App) {
 	alerttransaction := alerts.Group("/transactions")
 	alertnetworks := alerts.Group("/networks")
 
-	//------------------------- Feedback --------------------------------//
+	//------------------------- Ex-Feedback --------------------------------//
 	//feedback
 	app.Post("/feedback", healthchecks.Feedback)
-	//--------------------------- Trace ---------------------------------//
+	//--------------------------- Ex-Trace ---------------------------------//
 
 	//trace
 	tracenetwork.Post("/tracenetwork", healthchecks.Tracenetwork)
 	tracevisualisations.Post("/network", healthchecks.NetworkAlertID)
-	//--------------------------- Alerts ---------------------------------//
+	//--------------------------- Ex-Alerts ---------------------------------//
 
 	//alert
 	alerts.Post("/accounts", healthchecks.Alertsaccount)
@@ -107,7 +106,7 @@ func SetupPublicRoutes(app *fiber.App) {
 	alertaccount.Post("/account_alert_id", healthchecks.GetAccInfo)
 	alerttransaction.Post("/txn_alert_id", healthchecks.GetTransacInfo)
 	alertnetworks.Post("/network_alert_id", healthchecks.GetNetworkInfo)
-	//--------------------------- Match ---------------------------------//
+	//--------------------------- Ex-Match ---------------------------------//
 	//match-id
 	app.Post("/Transactionidmatches", healthchecks.Transactionidmatches)
 
@@ -133,22 +132,25 @@ func SetupPublicRoutes(app *fiber.App) {
 
 	webEnpoint.Get("/location", controller.ShowPage1)
 
-	//----------------------------- CREDIT TRANSFER -------------
+	//----------------------------- Token -------------
 	app.Post("/TransferAccount", token.TransferAccount)
-
 	app.Post("/Token", token.Generateandsettoken)
-
 	app.Post("/ip-details", token.Handledetails)
+
+	app.Get("/MonitoringFraud", token.MonitoringFraud)
+
+	//----------------------------- Trace and Alert -------------
 	// app.Post("/try", credittransfer.RunTraceService)
+	app.Post("/Alertaccount_credit", traceCode.AlertaccountCredittransfer)
+	app.Post("/Alerttransaction_credit", traceCode.AlerttransactionCredittransfer)
 
 	app.Post("/Trace_credit", traceandalert.TracenetworkCred)
 	app.Post("/Alert_credit", traceandalert.AlertnetworkCredit)
 	app.Post("/Matchesid_credit", traceandalert.MatchesidCredit)
 	app.Post("/Feedbackid_credit", traceandalert.FeedbackCredit)
-
-	app.Post("/Alertaccount_credit", traceCode.Alertaccount_Credittransfer)
-	app.Post("/Alerttransaction_credit", traceCode.Alerttransaction_Credittransfer)
 	app.Post("/trace_trans_PostmanMobilephoneBrowser", traceandalert.TracetransPostmanMobilephoneBrowser)
+
+	app.Post("/Lockaccount", traceandalert.Lockaccount)
 
 	//------------------------------ Notifications -------------
 	app.Post("/Email", notifications.Email)

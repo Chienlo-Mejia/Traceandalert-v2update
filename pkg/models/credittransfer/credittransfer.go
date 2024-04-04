@@ -15,22 +15,22 @@ type (
 	}
 
 	Trans_Request struct {
-		Instructionid    string    `json:"instructionid"`
-		Transactiontype  string    `json:"transactiontype"`
+		InstructionId    string    `json:"instructionId"`
+		TransactionType  string    `json:"transactionType"`
 		Status           string    `json:"status"`
-		Reasoncode       string    `json:"reasoncode"`
+		ReasonCode       string    `json:"reasonCode"`
 		Description      string    `json:"description"`
-		Localinstrument  string    `json:"localinstrument"`
-		Referenceid      string    `json:"referenceid"`
-		Senderbic        string    `json:"senderbic"`
-		Sendername       string    `json:"sendername"`
-		Senderaccount    string    `json:"senderaccount"`
-		Amountcurrency   string    `json:"amountcurrency"`
-		Senderamount     float64   `json:"senderamount"`
-		Receivingbic     string    `json:"receivingbic"`
-		Receivingname    string    `json:"receivingname"`
-		Receivingaccount string    `json:"receivingaccount"`
-		Datetime         time.Time `json:"datetime"`
+		LocalInstrument  string    `json:"localInstrument"`
+		ReferenceId      string    `json:"referenceId"`
+		SenderBic        string    `json:"senderBic"`
+		SenderName       string    `json:"senderName"`
+		SenderAccount    string    `json:"senderAccount"`
+		AmountCurrency   string    `json:"amountCurrency"`
+		SenderAmount     float64   `json:"senderAmount"`
+		ReceivingBic     string    `json:"receivingBic"`
+		ReceivingName    string    `json:"receivingName"`
+		ReceivingAccount string    `json:"receivingAccount"`
+		DateTime         time.Time `json:"dateTime"`
 	}
 )
 

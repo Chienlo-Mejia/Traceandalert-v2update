@@ -40,12 +40,12 @@ func CreateDirectory(path string) error {
 
 func Feedbacklogs(class, folder, Uniqueidfeedback string, Feedbackid string, Errors string, Alertid string) {
 	currentTime := time.Now()
-	folderName := fmt.Sprintf("./logs/feedback/%s/%s", folder, currentTime.Format("01-January"))
+	folderName := fmt.Sprintf("./logs/alertsFeedback/%s/%s", folder, currentTime.Format("01-January"))
 	if err := os.MkdirAll(folderName, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/alerts_feedback_%s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/alertsFeedback%s.log", folderName, currentTime.Format("2006-01-02"))
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatalf("Error opening log file: %v", err)
@@ -79,14 +79,14 @@ func Feedbacklogs(class, folder, Uniqueidfeedback string, Feedbackid string, Err
 // alerttransaction
 func Alertaccount(class, folder, Uniqueidalertaccount string, ID string, message string, Networkalertid string, Accountid string, Networkid string, Owningbankid string, Owningbankname string, Time time.Time, Name string, Mulescore float64, Sourcetransactionvalue int, Endpointflag bool, Numoutboundrelationships int, Numinboundrelationships int, Numscheduledmandates int, Firstappearance time.Time, Mostrecentappearance time.Time, Receivessalary bool, Dwelltime string, Numnetworks int, Numtracednetworks int, Generation int, Tracetype string, Totalsuspiciousvalueinbound int, Totalsuspiciousvalueoutbound int, Totalvalueinbound int, Totalvalueoutbound int, Generations []int, Mostrecentfeedback string, Parentalertid string, Decisiondate time.Time, Nextpaginationtoken string, Previouspaginationtoken string) {
 	currentTime := time.Now()
-	folderName := "./logs/alert_account/" + folder + "/" + currentTime.Format("01-January")
+	folderName := "./logs/alertAccount/" + folder + "/" + currentTime.Format("01-January")
 	CreateDirectory(folderName)
 	err := os.MkdirAll(folderName, os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/alerts_account %s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/alertAccount%s.log", folderName, currentTime.Format("2006-01-02"))
 
 	// Open the log file in append mode.
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
@@ -184,14 +184,14 @@ func Alertaccount(class, folder, Uniqueidalertaccount string, ID string, message
 // alerttransaction
 func Alerttransaction(class, folder, Uniqueidalertaccount string, ID string, Errors string, count_no int64, Txnid string, Networkalertid string, Networkid string, Time time.Time, Txntime time.Time, Sourceid string, Destid string, Sourcebankid string, Sourcebankname string, Destbankid string, Destbankname string, Value int, Remitinfo string, Generation int, Currency string, Service string, Dwelltime string, Tracetype string, Mulescore float64, Parentalertid string, Decisiondate time.Time, Mostrecentfeedback string) {
 	currentTime := time.Now()
-	folderName := "./logs/alert_transaction/" + folder + "/" + currentTime.Format("01-January")
+	folderName := "./logs/alertTransaction/" + folder + "/" + currentTime.Format("01-January")
 	CreateDirectory(folderName)
 	err := os.MkdirAll(folderName, os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/alert_transaction %s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/alertTransaction%s.log", folderName, currentTime.Format("2006-01-02"))
 
 	// Open the log file in append mode.
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
@@ -272,14 +272,14 @@ func Alerttransaction(class, folder, Uniqueidalertaccount string, ID string, Err
 
 func Tracenetwork(class, folder, Uniqueidnetwork string, Txnid_RB string, Vizurl string, Errors string, Sourcetxnid string, Sourcetxntype string, Parentalertid string, Decisiondate time.Time, Networkalertid string, Id string, Networkalertid_traceacc string, Accountid string, Networkid string, Owningbankid string, Owningbankname string, Time time.Time, ID_alert string, Txnid string, Networkalertid_alert string, Networkid_alert string, Sourceid string, Destid string, Sourcebankid string, Sourcebankname string, Destbankid string, Destbankname string, Tracetype string, Parentalertid_alert string, Decisiondate_alert time.Time, Status bool, Nextpaginationtoken string, Previouspaginationtoken string) {
 	currentTime := time.Now()
-	folderName := "./logs/trace_network/" + folder + "/" + currentTime.Format("01-January")
+	folderName := "./logs/traceNetwork/" + folder + "/" + currentTime.Format("01-January")
 	CreateDirectory(folderName)
 	err := os.MkdirAll(folderName, os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/trace_network %s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/traceNetwork %s.log", folderName, currentTime.Format("2006-01-02"))
 
 	// Open the log file in append mode.
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
@@ -378,14 +378,14 @@ func Tracenetwork(class, folder, Uniqueidnetwork string, Txnid_RB string, Vizurl
 
 func Tracevisuallogs(class, folder, Uniqueidvisualisation string, Traceid string, Errors string, Networkalertid string) {
 	currentTime := time.Now()
-	folderName := "./logs/trace_visualisation/" + folder + "/" + currentTime.Format("01-January")
+	folderName := "./logs/traceVisualisation/" + folder + "/" + currentTime.Format("01-January")
 	CreateDirectory(folderName)
 	err := os.MkdirAll(folderName, os.ModePerm)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/trace_visualisation %s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/traceVisualisation%s.log", folderName, currentTime.Format("2006-01-02"))
 
 	// Open the log file in append mode.
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
@@ -424,12 +424,12 @@ func Tracevisuallogs(class, folder, Uniqueidvisualisation string, Traceid string
 // Creditransferalertslogs
 func CreditransferAlertsLogs(class, folder, UniqueidCredittransfer string, message string, InstructionId string, requestTrigger, Transaction_type string, Status string, ReasonCode string, LocalInstrument string, ReferenceId string, SenderBic string, SenderName string, SenderAccount string, Amount float64, Currency string, ReceivingBic string, ReceivingName string, ReceivingAccount string, TraceAlert string, SourceTxnType string, AlertType string) {
 	currentTime := time.Now()
-	folderName := fmt.Sprintf("./logs/credit_transfer_alert/%s/%s", folder, currentTime.Format("01-January"))
+	folderName := fmt.Sprintf("./logs/creditTransferAlert/%s/%s", folder, currentTime.Format("01-January"))
 	if err := os.MkdirAll(folderName, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/credit_transfer_alert%s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/creditTransferAlert%s.log", folderName, currentTime.Format("2006-01-02"))
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatalf("Error opening log file: %v", err)
@@ -492,14 +492,14 @@ func CreditransferAlertsLogs(class, folder, UniqueidCredittransfer string, messa
 
 }
 
-func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, message string, InstructionId string, requestTrigger string, TransactionType string, Status string, ReasonCode string, LocalInstrument string, ReferenceId string, TraceAlert string, SourceTxnType string, AlertType string, FeedBack string) {
+func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, message string, InstructionId string, requestTrigger string, TransactionType string, Status string, ReasonCode string, LocalInstrument string, ReferenceId string, TraceAlert string, SourceTxnType string, AlertType string, FeedBack string, Lock string) {
 	currentTime := time.Now()
-	folderName := fmt.Sprintf("./logs/Feedback_credit_transfer_alert/%s/%s", folder, currentTime.Format("01-January"))
+	folderName := fmt.Sprintf("./logs/feedbackCreditTransfer_alert/%s/%s", folder, currentTime.Format("01-January"))
 	if err := os.MkdirAll(folderName, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/Feedback_credit_transfer_alert%s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/feedbackCreditTransfer_alert%s.log", folderName, currentTime.Format("2006-01-02"))
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatalf("Error opening log file: %v", err)
@@ -528,6 +528,7 @@ func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, mes
 	InfoLogger.Printf("REASONCODE: %+v\n", ReasonCode)
 	InfoLogger.Printf("LOCALINSTRUMENT: %+v\n", LocalInstrument)
 	InfoLogger.Printf("REFERENCEID: %+v\n", ReferenceId)
+	InfoLogger.Printf("Lock: %+v\n", Lock)
 
 	Separator.Println("")
 	log.Printf("               - - - - Trace_Credittransfer - - - -   ")
@@ -544,8 +545,9 @@ func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, mes
 	log.Printf("REASONCODE: %+v\n", ReasonCode)
 	log.Printf("LOCALINSTRUMENT: %+v\n", LocalInstrument)
 	log.Printf("REFERENCEID: %+v\n", ReferenceId)
+	log.Printf("Lock: %+v\n", Lock)
 
-	database.DBConn.Exec("SELECT * FROM trace_alerts.insert_logsfeedback_credittransfer(?,?,?,?,?,?,?,?,?,?,?,?,?)", UniqueidCredittransfer, message, TraceAlert, SourceTxnType, TransactionType, Status, ReasonCode, LocalInstrument, InstructionId, ReferenceId, requestTrigger, AlertType, FeedBack)
+	database.DBConn.Exec("SELECT * FROM trace_alerts.insert_logsfeedback_credittransfer(?,?,?,?,?,?,?,?,?,?,?,?,?,?)", UniqueidCredittransfer, message, TraceAlert, SourceTxnType, TransactionType, Status, ReasonCode, LocalInstrument, InstructionId, ReferenceId, requestTrigger, AlertType, FeedBack, Lock)
 
 }
 
@@ -553,12 +555,12 @@ func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, mes
 
 func Detectpostmanlogs(class, folder, message string, requestTrigger time.Time) {
 	currentTime := time.Now()
-	folderName := fmt.Sprintf("./logs/DetectPostmanMobileBrowser/%s/%s", folder, currentTime.Format("01-January"))
+	folderName := fmt.Sprintf("./logs/detectPostmanMobileBrowser/%s/%s", folder, currentTime.Format("01-January"))
 	if err := os.MkdirAll(folderName, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 
-	logFilename := fmt.Sprintf("%s/DetectPostmanMobileBrowser%s.log", folderName, currentTime.Format("2006-01-02"))
+	logFilename := fmt.Sprintf("%s/detectPostmanMobileBrowser%s.log", folderName, currentTime.Format("2006-01-02"))
 	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatalf("Error opening log file: %v", err)

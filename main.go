@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"text/template"
+	"time"
 	"tracealert/pkg/config"
 	routers "tracealert/pkg/routers"
 	middleware "tracealert/pkg/utils"
@@ -82,10 +83,10 @@ func main() {
 	// For GoRoutine implementation
 	// appb.Use(logger.New())
 
-	// Declare & initialize routes
+	//---------------- Call Endpoint ---------------
 	routers.SetupPublicRoutes(app)
 	routers.SetupPrivateRoutes(app)
-
+	//----------------------------------------------
 	// For GoRoutine implementation
 	// routers.SetupPublicRoutesB(appb)
 	// go func() {
@@ -135,4 +136,34 @@ func main() {
 		}
 	}
 
+}
+
+func checkForFraud() {
+	for {
+
+		currentTime := time.Now()
+		fmt.Println("Running fraud tracing at:", currentTime)
+
+		suspiciousTransactions := []struct {
+			Amount    float64
+			Recipient string
+		}{
+			{Amount: 5000.0, Recipient: "Fraudster1"},
+			{Amount: 10000.0, Recipient: "Fraudster2"},
+		}
+
+		// Check if there are any suspicious transactions
+		if len(suspiciousTransactions) > 0 {
+			fmt.Println("Suspicious transactions found:")
+			for _, transaction := range suspiciousTransactions {
+				fmt.Printf("Amount: %.2f, Recipient: %s\n", transaction.Amount, transaction.Recipient)
+			}
+			// Here you could take appropriate action, such as sending alerts, freezing accounts, etc.
+		} else {
+			fmt.Println("No suspicious transactions found.")
+		}
+
+		// Delay for one second before checking again
+		time.Sleep(time.Second)
+	}
 }

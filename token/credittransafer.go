@@ -40,41 +40,41 @@ func TransferAccount(c *fiber.Ctx) error {
 	}
 
 	// Generate unique IDs
-	instructionid := Referenceid()
-	referenceid := Iftgenerate()
+	instructionId := ReferenceId()
+	referenceId := Iftgenerate()
 	requestTrigger := time.Now().Format("2006-01-02 03:04:05")
 
 	// Prepare response object
 	response := &credittransfer.Trans_Request{
-		Instructionid:   instructionid,
-		Referenceid:     referenceid,
-		Transactiontype: "RECEIVING", // Default to "RECEIVING"
-		Senderbic:       "CAMZPHM2XXX",
-		Receivingbic:    "CBMFPHM1XXX",
-		Amountcurrency:  "PHP",
-		Localinstrument: "ICRT",
+		InstructionId:   instructionId,
+		ReferenceId:     referenceId,
+		TransactionType: "RECEIVING", // Default to "RECEIVING"
+		SenderBic:       "CAMZPHM2XXX",
+		ReceivingBic:    "CBMFPHM1XXX",
+		AmountCurrency:  "PHP",
+		LocalInstrument: "ICRT",
 		Description:     "Invalid transaction amount",
-		Reasoncode:      "AC01",
+		ReasonCode:      "AC01",
 		Status:          "FAILED-RJCT",
 	}
 
 	// Check transaction amount and update response accordingly
 	if trans.Transactionamount > 100 {
-		response.Transactiontype = "SENDING"
-		response.Reasoncode = "ACTC"
+		response.TransactionType = "SENDING"
+		response.ReasonCode = "ACTC"
 		response.Status = "SUCCESS"
 		response.Description = "Transaction processed successfully"
 	}
 
 	// Insert transaction record into database
-	insertQuery := `INSERT INTO trace_alerts.credit_transfer( instructionid, amountcurrency, description,  localinstrument, reasoncode, receivingaccount, receivingbic, receivingname, referenceid, senderaccount, senderamount, senderbic, sendername, status, transactiontype, datetime)
+	insertQuery := `INSERT INTO trace_alerts.credit_transfer( instruction_id, amount_currency, description,  local_instrument, reason_code, receiving_account, receiving_bic, receiving_name, reference_id, sender_account, sender_amount, sender_bic, sender_name, status, transaction_type, date_time)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
 	transacSave := database.DBConn.Debug().Exec(insertQuery,
-		instructionid, response.Amountcurrency, response.Description, response.Localinstrument, response.Reasoncode,
-		trans.Recipientaccountnumber, response.Receivingbic, trans.Recipientaccountname, referenceid,
-		trans.Senderaccountnumber, trans.Transactionamount, response.Senderbic, trans.Senderaccountname,
-		response.Status, response.Transactiontype, requestTrigger).Error
+		instructionId, response.AmountCurrency, response.Description, response.LocalInstrument, response.ReasonCode,
+		trans.Recipientaccountnumber, response.ReceivingBic, trans.Recipientaccountname, referenceId,
+		trans.Senderaccountnumber, trans.Transactionamount, response.SenderBic, trans.Senderaccountname,
+		response.Status, response.TransactionType, requestTrigger).Error
 
 	if transacSave != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Internal Server Error"})
@@ -106,7 +106,7 @@ func MonitorForDataBreaches(logEntry Log) {
 	}
 }
 
-func Referenceid() string {
+func ReferenceId() string {
 	rand.Seed(time.Now().UnixNano())
 	uniqueDigit := rand.Intn(10000)
 	return fmt.Sprintf("20240219CAMZPHM2XXXB0000000000%d", uniqueDigit)
