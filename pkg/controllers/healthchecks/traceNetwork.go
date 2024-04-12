@@ -13,7 +13,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Tracenetwork(c *fiber.Ctx) error {
+func TraceNetwork(c *fiber.Ctx) error {
 	network := &models.Request_trace{}
 	Uniqueidnetwork := Iftgeneratenetwork(32)
 	if err := c.BodyParser(&network); err != nil {

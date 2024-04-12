@@ -25,7 +25,7 @@ func checkRateLimitsalert_transaction() bool {
 	}
 	return false
 }
-func Alerttransaction(c *fiber.Ctx) error {
+func AlertTransaction(c *fiber.Ctx) error {
 	var userRequest models.Transaction_Body
 	Uniqueidalertaccount := Iftgeneratealerttransaction(32)
 

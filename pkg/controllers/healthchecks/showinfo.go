@@ -75,6 +75,7 @@ type Logscredittransfer struct {
 	RequestTrigger         string `json:"requestTrigger"`
 	AlertType              string `json:"alertType"`
 	Feedback               string `json:"feedback"`
+	SenderAccount          string `json:"senderAccount"`
 }
 
 type LogsFeedback_credittransfer struct {
@@ -92,6 +93,7 @@ type LogsFeedback_credittransfer struct {
 	AlertType              string `json:"alertType"`
 	Feedback               string `json:"feedback"`
 	Lock                   string `json:"lock"`
+	SenderAccount          string `json:"senderAccount"`
 }
 type TraceInfo struct {
 	Id             string `json:"id"`
@@ -113,7 +115,7 @@ func Alertaccinfo(c *fiber.Ctx) error {
 	ctResult := &[]LogsAlert{}
 	database.DBConn.Raw("SELECT * FROM trace_alerts.logsalertaccount WHERE 1=1").Scan(ctResult)
 
-	return c.Render("alertaccount", fiber.Map{
+	return c.Render("alertAccount", fiber.Map{
 		"title":      "Alert Account",
 		"ctResponse": ctResult,
 	})
@@ -123,7 +125,7 @@ func Tracevisinfo(c *fiber.Ctx) error {
 	ctResult := &[]Logstracevisualisation{}
 	database.DBConn.Raw("SELECT * FROM trace_alerts.logstracevisualisation WHERE 1=1").Scan(ctResult)
 
-	return c.Render("tracevisualisation", fiber.Map{
+	return c.Render("traceVisualisation", fiber.Map{
 		"title":      "Trace Visualisation",
 		"ctResponse": ctResult,
 	})
@@ -133,7 +135,7 @@ func Tracenetworkinfo(c *fiber.Ctx) error {
 	ctResult := &[]Logstracenetwork{}
 	database.DBConn.Raw("SELECT * FROM trace_alerts.logstracenetwork WHERE 1=1").Scan(ctResult)
 
-	return c.Render("tracenetwork", fiber.Map{
+	return c.Render("traceNetwork", fiber.Map{
 		"title":      "Trace Alerts",
 		"ctResponse": ctResult,
 	})
@@ -143,7 +145,7 @@ func Alerttransactioninfo(c *fiber.Ctx) error {
 	ctResult := &[]Logsalerttransaction{}
 	database.DBConn.Raw("SELECT * FROM trace_alerts.logsalerttransactions WHERE 1=1").Scan(ctResult)
 
-	return c.Render("alerttransaction", fiber.Map{
+	return c.Render("alertTransaction", fiber.Map{
 		"title":      "Alert Transaction",
 		"ctResponse": ctResult,
 	})
@@ -153,7 +155,7 @@ func Credittransferinfo(c *fiber.Ctx) error {
 	ctResult := &[]Logscredittransfer{}
 	database.DBConn.Raw("SELECT * FROM trace_alerts.logscredittransfer WHERE 1=1 ").Scan(ctResult)
 
-	return c.Render("credittransfer_trace", fiber.Map{
+	return c.Render("creditTransferTrace", fiber.Map{
 		"title":      "credit_transfer",
 		"ctResponse": ctResult,
 	})
@@ -163,14 +165,14 @@ func FeedbackCredittransferinfo(c *fiber.Ctx) error {
 	ctResult := &[]LogsFeedback_credittransfer{}
 	database.DBConn.Raw("SELECT * FROM trace_alerts.logsFeedback_credittransfer WHERE 1=1 ").Scan(ctResult)
 
-	return c.Render("credittransfer_feedback", fiber.Map{
+	return c.Render("creditTransferFeedback", fiber.Map{
 		"title":      "Feedback_credit_transfer",
 		"ctResponse": ctResult,
 	})
 }
 func ShowPage(c *fiber.Ctx) error {
 
-	return c.Render("tracepostman", fiber.Map{
+	return c.Render("tracePostman", fiber.Map{
 		"titlePage": "SAMPLE PAGE",
 	})
 

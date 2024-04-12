@@ -9,12 +9,18 @@ import (
 
 func ShowPage1(c *fiber.Ctx) error {
 
+	return c.Render("login", fiber.Map{
+		"titlePage": "SAMPLE PAGE",
+	})
+
+}
+func Location(c *fiber.Ctx) error {
+
 	return c.Render("locationDetect", fiber.Map{
 		"titlePage": "SAMPLE PAGE",
 	})
 
 }
-
 func ShowPage(c *fiber.Ctx) error {
 	ctResult := &[]tracenetwork.Errorlog{}
 

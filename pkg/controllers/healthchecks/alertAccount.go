@@ -25,7 +25,7 @@ func checkRateLimits_alertaccount() bool {
 	}
 	return false
 }
-func Alertsaccount(c *fiber.Ctx) error {
+func AlertsAccount(c *fiber.Ctx) error {
 	var userRequest models.RequestBodyalert
 
 	Uniqueidalertaccount := Iftgeneratealertaccount(32)

@@ -48,3 +48,8 @@ INFO: 2024/04/04 11:28:12                - - - - Trace_Transaction_(POSTMAN,MOBI
 INFO: 2024/04/04 11:28:12 Message: Transaction detected in MOBILEPHONE from the Device-ID f50f5782db5787db!
 INFO: 2024/04/04 11:28:12 Date_Time: 2024-04-04 11:28:12.368177 +0800 PST m=+1159.870952043
 2024/04/04 11:28:12 
+2024/04/04 14:18:28 
+INFO: 2024/04/04 14:18:28                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/04 14:18:28 Message: Transaction detected in POSTMAN from the endpoint of /Email!
+INFO: 2024/04/04 14:18:28 Date_Time: 2024-04-04 14:18:28.055845 +0800 PST m=+3194.242455668
+2024/04/04 14:18:28 

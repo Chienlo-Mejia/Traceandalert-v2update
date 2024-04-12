@@ -488,11 +488,11 @@ func CreditransferAlertsLogs(class, folder, UniqueidCredittransfer string, messa
 	log.Printf("RECEIVINGBIC: %+v\n", ReceivingBic)
 	log.Printf("RECEIVINGNAME: %+v\n", ReceivingName)
 	log.Printf("RECEIVINGACCOUNT: %+v\n", ReceivingAccount)
-	database.DBConn.Exec("SELECT * FROM trace_alerts.insert_logs_credittransfer(?,?,?,?,?,?,?,?,?,?,?,?)", UniqueidCredittransfer, message, TraceAlert, SourceTxnType, Transaction_type, Status, ReasonCode, LocalInstrument, InstructionId, ReferenceId, requestTrigger, AlertType)
+	database.DBConn.Exec("SELECT * FROM trace_alerts.insert_logs_credittransfer(?,?,?,?,?,?,?,?,?,?,?,?,?)", UniqueidCredittransfer, message, TraceAlert, SourceTxnType, Transaction_type, Status, ReasonCode, LocalInstrument, InstructionId, ReferenceId, requestTrigger, AlertType, SenderAccount)
 
 }
 
-func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, message string, InstructionId string, requestTrigger string, TransactionType string, Status string, ReasonCode string, LocalInstrument string, ReferenceId string, TraceAlert string, SourceTxnType string, AlertType string, FeedBack string, Lock string) {
+func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, message string, InstructionId string, requestTrigger string, TransactionType string, Status string, ReasonCode string, LocalInstrument string, ReferenceId string, TraceAlert string, SourceTxnType string, AlertType string, FeedBack string, Lock string, SenderAccount string) {
 	currentTime := time.Now()
 	folderName := fmt.Sprintf("./logs/feedbackCreditTransfer_alert/%s/%s", folder, currentTime.Format("01-January"))
 	if err := os.MkdirAll(folderName, os.ModePerm); err != nil {
@@ -528,7 +528,8 @@ func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, mes
 	InfoLogger.Printf("REASONCODE: %+v\n", ReasonCode)
 	InfoLogger.Printf("LOCALINSTRUMENT: %+v\n", LocalInstrument)
 	InfoLogger.Printf("REFERENCEID: %+v\n", ReferenceId)
-	InfoLogger.Printf("Lock: %+v\n", Lock)
+	InfoLogger.Printf("MULE_LOCK: %+v\n", Lock)
+	InfoLogger.Printf("SENDER_ACCOUNT: %+v\n", SenderAccount)
 
 	Separator.Println("")
 	log.Printf("               - - - - Trace_Credittransfer - - - -   ")
@@ -545,9 +546,10 @@ func CreditransferFeedbackLogs(class, folder, UniqueidCredittransfer string, mes
 	log.Printf("REASONCODE: %+v\n", ReasonCode)
 	log.Printf("LOCALINSTRUMENT: %+v\n", LocalInstrument)
 	log.Printf("REFERENCEID: %+v\n", ReferenceId)
-	log.Printf("Lock: %+v\n", Lock)
+	log.Printf("MULE_LOCK: %+v\n", Lock)
+	log.Printf("SENDER_ACCOUNT: %+v\n", SenderAccount)
 
-	database.DBConn.Exec("SELECT * FROM trace_alerts.insert_logsfeedback_credittransfer(?,?,?,?,?,?,?,?,?,?,?,?,?,?)", UniqueidCredittransfer, message, TraceAlert, SourceTxnType, TransactionType, Status, ReasonCode, LocalInstrument, InstructionId, ReferenceId, requestTrigger, AlertType, FeedBack, Lock)
+	database.DBConn.Exec("SELECT * FROM trace_alerts.insert_logsfeedback_credittransfer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", UniqueidCredittransfer, message, TraceAlert, SourceTxnType, TransactionType, Status, ReasonCode, LocalInstrument, InstructionId, ReferenceId, requestTrigger, AlertType, FeedBack, Lock, SenderAccount)
 
 }
 

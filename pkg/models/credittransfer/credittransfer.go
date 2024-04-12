@@ -1,4 +1,4 @@
-package credittransfer
+package creditTransfer
 
 import "time"
 

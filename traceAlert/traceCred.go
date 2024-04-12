@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 	"tracealert/middleware/loggers"
-	errorhandling "tracealert/pkg/models/errorHandling"
+	errorHandling "tracealert/pkg/models/errorHandling"
 	"tracealert/pkg/models/errors"
 	"tracealert/pkg/models/tracenetwork"
 	"tracealert/pkg/utils/go-utils/database"
@@ -34,7 +34,7 @@ func TracenetworkCred(c *fiber.Ctx) error {
 		// 400 Bad Request
 
 		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
-		return errorhandling.Bad_Request(c, "The request contains a bad payload")
+		return errorHandling.Bad_Request(c, "The request contains a bad payload")
 	}
 
 	Query := `SELECT * FROM rbi_instapay.ct_transaction WHERE 1 = 1`
@@ -92,7 +92,7 @@ func TracenetworkCred(c *fiber.Ctx) error {
 	if resultCount.Error != nil {
 		//400
 		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
-		return errorhandling.Bad_Request(c, "Error counting transactions")
+		return errorHandling.Bad_Request(c, "Error counting transactions")
 	}
 
 	if userRequest.Filter != "" {
@@ -100,7 +100,7 @@ func TracenetworkCred(c *fiber.Ctx) error {
 		if resultFilteredCount.Error != nil {
 			//400
 			loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
-			return errorhandling.Bad_Request(c, "Error counting filtered transactions")
+			return errorHandling.Bad_Request(c, "Error counting filtered transactions")
 		}
 	}
 
@@ -119,19 +119,19 @@ func TracenetworkCred(c *fiber.Ctx) error {
 	if err != nil {
 		// 400 Bad Request
 		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(Method Not Allowed - 400)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
-		return errorhandling.Bad_Request(c, "Error retrieving transactions")
+		return errorHandling.Bad_Request(c, "Error retrieving transactions")
 	}
 
 	if len(transactions) == 0 {
 		// 404 Not Found
 		loggers.CreditransferAlertsLogs(c.Path(), "folderName", UniqueidCredittransfer, "(NOT_FOUND - 404)", "null", requestTrigger, "null", "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null", Trace_alert, "null", "null")
-		return errorhandling.Url_Not_Found(c, "No data found for the specified date")
+		return errorHandling.Url_Not_Found(c, "No data found for the specified date")
 	}
 
 	// Check if transaction exists and its type
 	exists, err := checktxnidexist(transactions[0].ReferenceId, transactions[0].InstructionId, transactions[0].ReceivingAccount, transactions[0].ReceivingName, transactions[0].SenderAccount, transactions[0].SenderName)
 	if err != nil {
-		return errorhandling.Internal_Server_Error(c, "Error while checking transaction existence")
+		return errorHandling.Internal_Server_Error(c, "Error while checking transaction existence")
 	}
 
 	if exists || (userresponse.Amount > 50000 || userresponse.Amount < 100) {
@@ -166,7 +166,7 @@ func TracenetworkCred(c *fiber.Ctx) error {
 
 	userLimit := userRequest.Limit
 	if userLimit < 0 {
-		return errorhandling.Bad_Request(c, "Invalid limit")
+		return errorHandling.Bad_Request(c, "Invalid limit")
 	}
 
 	for i := 0; i < userLimit && i < len(transactions); i++ {

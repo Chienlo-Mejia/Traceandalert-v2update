@@ -4,11 +4,12 @@ go 1.20
 
 require (
 	github.com/go-sql-driver/mysql v1.7.1
-	github.com/gofiber/fiber/v2 v2.52.2
+	github.com/gofiber/fiber/v2 v2.52.4
 	github.com/gofiber/jwt/v3 v3.3.10
 	github.com/gofiber/template/html/v2 v2.1.1
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/joho/godotenv v1.5.1
+	github.com/lib/pq v1.10.9
 	github.com/oschwald/geoip2-golang v1.9.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sfreiberg/gotwilio v1.0.0

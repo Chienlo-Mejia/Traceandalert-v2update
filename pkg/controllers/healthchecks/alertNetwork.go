@@ -23,7 +23,7 @@ func checkRateLimits_alertnetwork() bool {
 	return false
 }
 
-func Alertnetwork(c *fiber.Ctx) error {
+func AlertNetwork(c *fiber.Ctx) error {
 	network := &models.NetworkBody{}
 
 	if checkRateLimits_alertnetwork() {

@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 	"tracealert/controller"
+	"tracealert/location"
 	"tracealert/middleware/loggers"
 	notifications "tracealert/notifications"
 	"tracealert/pkg/controllers/healthchecks"
@@ -94,14 +95,14 @@ func SetupPublicRoutes(app *fiber.App) {
 	//--------------------------- Ex-Trace ---------------------------------//
 
 	//trace
-	tracenetwork.Post("/tracenetwork", healthchecks.Tracenetwork)
+	tracenetwork.Post("/tracenetwork", healthchecks.TraceNetwork)
 	tracevisualisations.Post("/network", healthchecks.NetworkAlertID)
 	//--------------------------- Ex-Alerts ---------------------------------//
 
 	//alert
-	alerts.Post("/accounts", healthchecks.Alertsaccount)
-	alerts.Post("/transactions", healthchecks.Alerttransaction)
-	alerts.Post("/networks", healthchecks.Alertnetwork)
+	alerts.Post("/accounts", healthchecks.AlertsAccount)
+	alerts.Post("/transactions", healthchecks.AlertTransaction)
+	alerts.Post("/networks", healthchecks.AlertNetwork)
 	//alertID
 	alertaccount.Post("/account_alert_id", healthchecks.GetAccInfo)
 	alerttransaction.Post("/txn_alert_id", healthchecks.GetTransacInfo)
@@ -130,14 +131,18 @@ func SetupPublicRoutes(app *fiber.App) {
 	webEnpoint.Get("/Feedback_Credittransfer", healthchecks.FeedbackCredittransferinfo)
 	webEnpoint.Get("/TracePostmanMobileBrowser", healthchecks.TracePostmanMobileBrowser)
 
-	webEnpoint.Get("/location", controller.ShowPage1)
+	webEnpoint.Get("/login", controller.ShowPage1)
+	webEnpoint.Get("/Location", controller.Location)
 
 	//----------------------------- Token -------------
 	app.Post("/TransferAccount", token.TransferAccount)
+	app.Post("/LockAcc", token.BlockID)
+
 	app.Post("/Token", token.Generateandsettoken)
 	app.Post("/ip-details", token.Handledetails)
 
 	app.Get("/MonitoringFraud", token.MonitoringFraud)
+	app.Get("/Location1", location.GetLocation)
 
 	//----------------------------- Trace and Alert -------------
 	// app.Post("/try", credittransfer.RunTraceService)
@@ -150,12 +155,17 @@ func SetupPublicRoutes(app *fiber.App) {
 	app.Post("/Feedbackid_credit", traceandalert.FeedbackCredit)
 	app.Post("/trace_trans_PostmanMobilephoneBrowser", traceandalert.TracetransPostmanMobilephoneBrowser)
 
-	app.Post("/Lockaccount", traceandalert.Lockaccount)
+	//----------------------------- Lock account -------------
+	// app.Post("/GenerateCreditTransfer", token.Transactions)
+	// app.Post("/Lock", token.BlockTransaction)
+	// app.Post("/UnlockLock", token.UnblockTransaction)
+	app.Post("/Lockaccount", traceandalert.LockAccount)
+	app.Post("/Unlockaccount", traceandalert.UnlockAccount)
 
 	//------------------------------ Notifications -------------
-	app.Post("/Email", notifications.Email)
+	// app.Post("/Email", notifications.Email)
 	app.Post("/Sms", notifications.Sms)
-	app.Post("/Sms_telerivet", notifications.Sms_telerivet)
+	// app.Post("/Sms_telerivet", notifications.Sms_telerivet)
 
 	//------------------------------  Encrypt & decrypt -------------
 	app.Post("/Encrypt", notifications.Encryptdata)

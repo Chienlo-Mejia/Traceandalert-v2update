@@ -1,0 +1,20 @@
+2024/04/08 09:45:27 
+INFO: 2024/04/08 09:45:27                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/08 09:45:27 Message: Transaction detected in BROWSER for the /Email endpoint!
+INFO: 2024/04/08 09:45:27 Date_Time: 2024-04-08 09:45:26.989434 +0800 PST m=+4.331080293
+2024/04/08 09:45:27 
+2024/04/08 16:34:30 
+INFO: 2024/04/08 16:34:30                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/08 16:34:30 Message: Transaction detected in MOBILEPHONE from the Device-ID f50f5782db5787db!
+INFO: 2024/04/08 16:34:30 Date_Time: 2024-04-08 16:34:30.290316 +0800 PST m=+499.589347084
+2024/04/08 16:34:30 
+2024/04/08 16:34:54 
+INFO: 2024/04/08 16:34:54                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/08 16:34:54 Message: Transaction detected in MOBILEPHONE from the Device-ID f50f5782db5787db!
+INFO: 2024/04/08 16:34:54 Date_Time: 2024-04-08 16:34:54.513782 +0800 PST m=+523.812787751
+2024/04/08 16:34:54 
+2024/04/08 16:35:06 
+INFO: 2024/04/08 16:35:06                - - - - Trace_Transaction_(POSTMAN,MOBILE_PHONE,BROWSER) - - - -   
+INFO: 2024/04/08 16:35:06 Message: Transaction detected in MOBILEPHONE from the Device-ID f50f5782db5787db!
+INFO: 2024/04/08 16:35:06 Date_Time: 2024-04-08 16:35:06.634015 +0800 PST m=+535.933007209
+2024/04/08 16:35:06 

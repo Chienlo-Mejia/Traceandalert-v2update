@@ -56,6 +56,7 @@ type (
 		ReferenceId            string `json:"referenceId"`
 		AlertType              string `json:"alertType"`
 		RequestTrigger         string `json:"requestTrigger"`
+		SenderAccount          string `json:"senderAccount"`
 	}
 
 	Errorlog struct {
