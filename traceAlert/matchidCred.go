@@ -19,10 +19,10 @@ import (
 // - "TRACE_FINANCIAL_CRIME"
 
 func MatchesidCredit(c *fiber.Ctx) error {
-	network := &tracenetwork.Credit_transfer{}
+	network := &tracenetwork.CreditTransfer{}
 	UniqueidCredittransfer := IftgenerateMatchesidcredittransfer(32)
 	requestTrigger := time.Now().Format("2006-01-02 15:04:05")
-	var transactions []tracenetwork.Trans_Request
+	var transactions []tracenetwork.TransRequest
 	var Sourcetxntype string
 	var Trace_alert string
 	var Alerttype string
@@ -81,8 +81,8 @@ func MatchesidCredit(c *fiber.Ctx) error {
 	}
 
 	responseBody := struct {
-		Alerts            fiber.Map                    `json:"alerts"`
-		TransactionAlerts []tracenetwork.Trans_Request `json:"transactionAlerts"`
+		Alerts            fiber.Map                   `json:"alerts"`
+		TransactionAlerts []tracenetwork.TransRequest `json:"transactionAlerts"`
 	}{
 		Alerts: fiber.Map{
 			"InstructionsID": transactions[0].InstructionId,

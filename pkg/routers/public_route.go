@@ -7,7 +7,6 @@ import (
 	"strings"
 	"time"
 	"tracealert/controller"
-	"tracealert/location"
 	"tracealert/middleware/loggers"
 	notifications "tracealert/notifications"
 	"tracealert/pkg/controllers/healthchecks"
@@ -133,16 +132,16 @@ func SetupPublicRoutes(app *fiber.App) {
 
 	webEnpoint.Get("/login", controller.ShowPage1)
 	webEnpoint.Get("/Location", controller.Location)
-
-	//----------------------------- Token -------------
 	app.Post("/TransferAccount", token.TransferAccount)
 	app.Post("/LockAcc", token.BlockID)
+	app.Post("/UnlockAcc", token.UnblockID)
+	//----------------------------- Token -------------
 
 	app.Post("/Token", token.Generateandsettoken)
 	app.Post("/ip-details", token.Handledetails)
 
 	app.Get("/MonitoringFraud", token.MonitoringFraud)
-	app.Get("/Location1", location.GetLocation)
+	// app.Get("/Location1", location.GetLocation)
 
 	//----------------------------- Trace and Alert -------------
 	// app.Post("/try", credittransfer.RunTraceService)
@@ -150,7 +149,7 @@ func SetupPublicRoutes(app *fiber.App) {
 	app.Post("/Alerttransaction_credit", traceCode.AlerttransactionCredittransfer)
 
 	app.Post("/Trace_credit", traceandalert.TracenetworkCred)
-	app.Post("/Alert_credit", traceandalert.AlertnetworkCredit)
+	app.Post("/alert-credit", traceandalert.AlertFraud)
 	app.Post("/Matchesid_credit", traceandalert.MatchesidCredit)
 	app.Post("/Feedbackid_credit", traceandalert.FeedbackCredit)
 	app.Post("/trace_trans_PostmanMobilephoneBrowser", traceandalert.TracetransPostmanMobilephoneBrowser)
@@ -170,6 +169,10 @@ func SetupPublicRoutes(app *fiber.App) {
 	//------------------------------  Encrypt & decrypt -------------
 	app.Post("/Encrypt", notifications.Encryptdata)
 	app.Post("/Decrypt", notifications.Decryptdata)
+
+	//------------------------------  Trace Fraud -------------
+	app.Post("/TraceFraud", traceandalert.TraceFraud)
+	app.Post("/FeedbackFraud", traceandalert.FeedbackFraud)
 
 }
 

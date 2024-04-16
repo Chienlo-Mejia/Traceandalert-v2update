@@ -55,7 +55,7 @@ import (
 //	}
 
 func FeedbackCredit(c *fiber.Ctx) error {
-	network := &tracenetwork.Credittransfer_feedback{}
+	network := &tracenetwork.CredittransferFeedback{}
 	UniqueidCredittransfer := Iftgeneratefeedbackcredittransfer(32)
 
 	requestTrigger := time.Now().Format("2006-01-02 15:04:05")
@@ -65,7 +65,7 @@ func FeedbackCredit(c *fiber.Ctx) error {
 		return errorHandling.Bad_Request(c, "The request contains a bad payload")
 	}
 
-	var transactions []tracenetwork.Credittransfer_feedback_response
+	var transactions []tracenetwork.CredittransferFeedbackResponse
 	if err := database.DBConn.Debug().Raw("SELECT * FROM trace_alerts.logscredittransfer WHERE uniqueid_credittransfer = ? AND source_txn_type = ? AND trace_alert = ? AND alert_type = ? ", network.UniqueidCredittransfer, network.TraceType, network.TraceAlert, network.AlertType).Find(&transactions).Error; err != nil {
 		return errorHandling.Internal_Server_Error(c, "Internal server error")
 	}
@@ -106,8 +106,8 @@ func FeedbackCredit(c *fiber.Ctx) error {
 	}
 
 	responseBody := struct {
-		Alerts            fiber.Map                                       `json:"alerts"`
-		TransactionAlerts []tracenetwork.Credittransfer_feedback_response `json:"transactionAlerts"`
+		Alerts            fiber.Map                                     `json:"alerts"`
+		TransactionAlerts []tracenetwork.CredittransferFeedbackResponse `json:"transactionAlerts"`
 	}{}
 
 	responseBody.Alerts = fiber.Map{

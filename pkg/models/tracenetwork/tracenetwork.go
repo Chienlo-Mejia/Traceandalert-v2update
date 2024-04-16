@@ -3,12 +3,12 @@ package tracenetwork
 import "time"
 
 type (
-	Trans_Body struct {
+	TransBody struct {
 		Since  string `json:"since"`
 		Limit  int    `json:"limit"`
 		Filter string `json:"filter"`
 	}
-	Trans_Request struct {
+	TransRequest struct {
 		InstructionId       string  `json:"instructionId"`
 		TransactionDatetime string  `josn:"transactionDatetime"`
 		TransactionType     string  `json:"transactionType"`
@@ -26,24 +26,27 @@ type (
 		ReceivingAccount    string  `json:"receivingAccount"`
 	}
 
-	Credit_transfer struct {
+	TraceFraud struct {
+		SenderAccount string `json:"senderAccount"`
+	}
+	CreditTransfer struct {
 		InstructionId    string `json:"instructionId"`
+		Filter           string `json:"filter"`
 		ReferenceId      string `json:"referenceId"`
 		ReceivingAccount string `json:"receivingAccount"`
 		ReceivingName    string `json:"receivingName"`
 		SenderAccount    string `json:"senderAccount"`
 		SenderName       string `json:"senderName"`
-		Filter           string `json:"filter"`
 	}
 
-	Credittransfer_feedback struct {
+	CredittransferFeedback struct {
 		UniqueidCredittransfer string `json:"uniqueidCredittransfer"`
 		AlertType              string `json:"alertType"`
 		TraceType              string `json:"traceType"`
 		TraceAlert             string `json:"traceAlert"`
 	}
 
-	Credittransfer_feedback_response struct {
+	CredittransferFeedbackResponse struct {
 		UniqueidCredittransfer string `json:"uniqueidCredittransfer"`
 		Message                string `json:"message"`
 		TraceAlert             string `json:"traceAlert"`

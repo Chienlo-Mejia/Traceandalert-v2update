@@ -1,60 +1,39 @@
 package location
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 type Location struct {
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
+	Latitude  float64 `json:"lat"`
+	Longitude float64 `json:"lng"`
 }
 
-type IPStackResponse struct {
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-}
+func GetUserLocation() (Location, error) {
+	apiKey := "AIzaSyBOgoIW9c_8vgl0i7mUGoltXND2VzSQHFg"
+	url := fmt.Sprintf("https://www.googleapis.com/geolocation/v1/geolocate?key=%s", apiKey)
 
-func GetLocationLocation(ip string) (float64, float64, error) {
-	apiKey := "AIzaSyB9BOMZFGLdjFzokzd7reQlSn2y9y4EOCM" // Replace with your actual API key
-	url := fmt.Sprintf("http://api.ipstack.com/%s?access_key=%s", ip, apiKey)
+	// Create an empty JSON request body
+	requestBody := []byte(`{}`)
 
-	resp, err := http.Get(url)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
-		return 0, 0, err
+		return Location{}, fmt.Errorf("failed to get location data: %v", err)
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK {
+		return Location{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+
+	var location Location
+	err = json.NewDecoder(resp.Body).Decode(&location)
 	if err != nil {
-		return 0, 0, err
+		return Location{}, fmt.Errorf("failed to decode location data: %v", err)
 	}
 
-	var ipstackResp IPStackResponse
-	err = json.Unmarshal(body, &ipstackResp)
-	if err != nil {
-		return 0, 0, err
-	}
-
-	return ipstackResp.Latitude, ipstackResp.Longitude, nil
-}
-
-func GetLocation(c *fiber.Ctx) error {
-	ipAddress := c.IP()
-
-	latitude, longitude, err := GetLocationLocation(ipAddress)
-	if err != nil {
-		return c.Status(http.StatusInternalServerError).SendString(err.Error())
-	}
-
-	location := Location{
-		Latitude:  latitude,
-		Longitude: longitude,
-	}
-
-	return c.JSON(location)
+	return location, nil
 }

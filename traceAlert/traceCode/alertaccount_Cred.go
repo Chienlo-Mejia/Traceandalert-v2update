@@ -19,9 +19,9 @@ import (
 // - "TRACE_FINANCIAL_CRIME"
 
 func AlertaccountCredittransfer(c *fiber.Ctx) error {
-	userRequest := &tracenetwork.Trans_Body{}
-	var transactions []tracenetwork.Trans_Request
-	userresponse := &tracenetwork.Trans_Request{}
+	userRequest := &tracenetwork.TransBody{}
+	var transactions []tracenetwork.TransRequest
+	userresponse := &tracenetwork.TransRequest{}
 	Uniqueidcredittransfer := Iftgeneratealertaccountcredittransfer(32)
 	// requestTrigger := time.Now().Format("03:04:05")
 	// requestTrigger := time.Now().Format("2006-01-02")
@@ -125,8 +125,8 @@ func AlertaccountCredittransfer(c *fiber.Ctx) error {
 
 	// Prepare response body
 	responseBody := struct {
-		Alerts            fiber.Map                    `json:"alerts"`
-		TransactionAlerts []tracenetwork.Trans_Request `json:"transactionAlerts"`
+		Alerts            fiber.Map                   `json:"alerts"`
+		TransactionAlerts []tracenetwork.TransRequest `json:"transactionAlerts"`
 	}{
 		Alerts: fiber.Map{
 			"totalRecords":     count,

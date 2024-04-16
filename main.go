@@ -6,8 +6,10 @@ import (
 	"net/http"
 	"os"
 	"text/template"
+
 	"tracealert/pkg/config"
 	routers "tracealert/pkg/routers"
+
 	middleware "tracealert/pkg/utils"
 
 	"github.com/gofiber/fiber/v2"
@@ -119,20 +121,32 @@ func main() {
 	//----------
 
 	//----------
-
-	fmt.Println("Port:", middleware.GetEnv("PORT"))
-	// Serve the application
-	if middleware.GetEnv("SSL") == "enabled" {
-		log.Fatal(app.ListenTLS(
-			fmt.Sprintf(":%s", middleware.GetEnv("PORT")),
-			middleware.GetEnv("SSL_CERTIFICATE"),
-			middleware.GetEnv("SSL_KEY"),
-		))
-	} else {
-		err := app.Listen(fmt.Sprintf(":%s", middleware.GetEnv("PORT")))
-		if err != nil {
-			log.Fatal(err.Error())
-		}
+	// Start server
+	err = app.Listen(":18016")
+	if err != nil {
+		log.Fatalf("Failed to start server: %v", err)
 	}
+
+	address := fmt.Sprintf("192.168.0.122:%s", middleware.GetEnv("PORT"))
+
+	if err := app.Listen(address); err != nil {
+		log.Fatal(err.Error())
+	}
+
+	//-------
+	// fmt.Println("Port:", middleware.GetEnv("PORT"))
+	// // Serve the application
+	// if middleware.GetEnv("SSL") == "enabled" {
+	// 	log.Fatal(app.ListenTLS(
+	// 		fmt.Sprintf(":%s", middleware.GetEnv("PORT")),
+	// 		middleware.GetEnv("SSL_CERTIFICATE"),
+	// 		middleware.GetEnv("SSL_KEY"),
+	// 	))
+	// } else {
+	// 	err := app.Listen(fmt.Sprintf(":%s", middleware.GetEnv("PORT")))
+	// 	if err != nil {
+	// 		log.Fatal(err.Error())
+	// 	}
+	// }
 
 }
