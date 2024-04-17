@@ -1,9 +1,12 @@
 package traceandalert
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
+	"tracealert/middleware/loggers"
 	errorHandling "tracealert/pkg/models/errorHandling"
+	"tracealert/pkg/models/errors"
 	"tracealert/pkg/models/tracenetwork"
 	"tracealert/pkg/utils/go-utils/database"
 
@@ -48,7 +51,7 @@ import (
 
 func AlertFraud(c *fiber.Ctx) error {
 	network := &tracenetwork.TraceFraud{}
-	requestTrigger := time.Now().Format("2006-01-02 15:04:05")
+	DateTime := time.Now().Format("2006-01-02 15:04:05")
 	GenTraceId := IftGenId(32)
 
 	var transactions []tracenetwork.TransRequest
@@ -56,6 +59,8 @@ func AlertFraud(c *fiber.Ctx) error {
 	var TraceStatus string
 
 	if err := c.BodyParser(network); err != nil {
+
+		loggers.AlertFraudLogs(c.Path(), "folderName", "null", "null", "null", DateTime, "null", "null", "null", transactions[0].TransactionDatetime, "null", "null", "null", "null", "null", "null", "null", 0, "null", "null", "null", "null")
 		return errorHandling.Bad_Request(c, "The request contains a bad payload")
 	}
 
@@ -98,7 +103,7 @@ func AlertFraud(c *fiber.Ctx) error {
 		Fraud_Alerts: fiber.Map{
 			"GenerateId":    GenTraceId,
 			"SenderAccount": network.SenderAccount,
-			"Date/Time":     requestTrigger,
+			"Date/Time":     DateTime,
 			"Trace_Type":    SourceTxntype,
 			"Trace_Status":  TraceStatus,
 		},
@@ -109,6 +114,34 @@ func AlertFraud(c *fiber.Ctx) error {
 		responseBody.Fraud_Alerts["Trace_Status"] = TraceStatus
 	}
 
+	//------------- Logs --------------
+
+	for _, transaction := range filteredTransactions {
+		var errorresp errors.Errorresp
+		Errors := errorresp.Errorresponse
+
+		SenderAccount := network.SenderAccount
+		SourceTxnType := SourceTxntype
+		InstructionId := transaction.InstructionId
+		TransactionDatetime := transaction.TransactionDatetime
+		TransactionType := transaction.TransactionType
+		Status := transaction.Status
+		ReasonCode := transaction.ReasonCode
+		LocalInstrument := transaction.LocalInstrument
+		ReferenceId := transaction.ReferenceId
+		SenderBic := transaction.SenderBic
+		SenderName := transaction.SenderName
+		Amount := transaction.Amount
+		Currency := transaction.Currency
+		ReceivingBic := transaction.ReceivingBic
+		ReceivingName := transaction.ReceivingName
+		ReceivingAccount := transaction.ReceivingAccount
+
+		message := fmt.Sprintf(" Success %s ", Errors)
+		loggers.AlertFraudLogs(c.Path(), "folderName", GenTraceId, message, SenderAccount, DateTime, SourceTxnType, TraceStatus, InstructionId, TransactionDatetime, TransactionType, Status, ReasonCode, LocalInstrument, ReferenceId, SenderBic, SenderName, Amount, Currency, ReceivingBic, ReceivingName, ReceivingAccount)
+	}
+
+	responseBody.TransactionAlerts = filteredTransactions
 	return c.JSON(responseBody)
 }
 
@@ -118,6 +151,7 @@ func checkTxnId_ExistAlert(SenderAccount string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
+
 	return count > 1, nil
 }
 

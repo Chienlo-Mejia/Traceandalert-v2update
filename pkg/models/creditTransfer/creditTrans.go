@@ -3,7 +3,7 @@ package creditTransfer
 import "time"
 
 type (
-	Trans_Body struct {
+	TransBody struct {
 		Senderaccountnumber    string  `json:"senderaccountnumber"`
 		Senderaccountname      string  `json:"senderaccountname"`
 		Recipientbankcode      string  `json:"recipientbankcode"`
@@ -14,7 +14,7 @@ type (
 		Transactioncharge      float64 `json:"transactioncharge"`
 	}
 
-	Trans_Request struct {
+	TransRequest struct {
 		InstructionId    string    `json:"instructionId"`
 		TransactionType  string    `json:"transactionType"`
 		Status           string    `json:"status"`

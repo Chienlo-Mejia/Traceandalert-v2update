@@ -68,7 +68,7 @@ func Feedbacklogs(class, folder, Uniqueidfeedback string, Feedbackid string, Err
 
 	Separator.Println("")
 	log.Printf("               - - - - Feedback - - - -   ")
-	log.Printf("Unique-IDz: %+v\n", Uniqueidfeedback)
+	log.Printf("Unique-ID: %+v\n", Uniqueidfeedback)
 	log.Printf("FEEDBACK-REQUEST: %+v\n", Feedbackid)
 	log.Printf("ALERTID: %+v\n", Alertid)
 	log.Printf("RESPONSE: %+v\n", Errors)
@@ -589,6 +589,74 @@ func Detectpostmanlogs(class, folder, message string, requestTrigger time.Time) 
 	database.DBConn.Exec("SELECT * FROM trace_alerts.insert_logs_tracetrans_PostmanMobilephoneBrowser(?,? )", message, requestTrigger)
 }
 
+//-------------------------------
+
+func AlertFraudLogs(class, folder, GenTraceId string, message string, SenderAccount string, DateTime string, SourceTxnType string, TraceStatus string, InstructionId string, TransactionDatetime string, TransactionType string, Status string, ReasonCode string, LocalInstrument string, ReferenceId string, SenderBic string, SenderName string, Amount float64, Currency string, ReceivingBic string, ReceivingName string, ReceivingAccount string) {
+	currentTime := time.Now()
+	folderName := fmt.Sprintf("./logs/alertsFraudLogs/%s/%s", folder, currentTime.Format("01-January"))
+	if err := os.MkdirAll(folderName, os.ModePerm); err != nil {
+		log.Fatal(err)
+	}
+
+	logFilename := fmt.Sprintf("%s/alertsFraudLogs%s.log", folderName, currentTime.Format("2006-01-02"))
+	logfile, err := os.OpenFile(logFilename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatalf("Error opening log file: %v", err)
+	}
+	defer func() {
+		if closeErr := logfile.Close(); closeErr != nil {
+			log.Printf("Error closing log file: %v", closeErr)
+		}
+	}()
+
+	InfoLogger := log.New(logfile, "INFO: ", log.Ldate|log.Ltime)
+	Separator := log.New(logfile, "", log.Ldate|log.Ltime)
+
+	Separator.Println("")
+	InfoLogger.Println("               - - - - Feedback Fraud - - - -   ")
+	InfoLogger.Printf("GENERATE-ID: %+v\n", GenTraceId)
+	InfoLogger.Printf("TRANSACT-STATUS: %+v\n", message)
+	InfoLogger.Printf("SENDER ACCOUNT: %+v\n", SenderAccount)
+	InfoLogger.Printf("SENDER ACCOUNT: %+v\n", DateTime)
+	InfoLogger.Printf("TYPE: %+v\n", SourceTxnType)
+	InfoLogger.Printf("STATUS: %+v\n", TraceStatus)
+	InfoLogger.Printf("INSTRUNCTION: %+v\n", InstructionId)
+	InfoLogger.Printf("TRANSACTION-TYPE: %+v\n", TransactionType)
+	InfoLogger.Printf("STATUS: %+v\n", Status)
+	InfoLogger.Printf("REASAON-CODE: %+v\n", ReasonCode)
+	InfoLogger.Printf("LOCAL-INSTRUMENT: %+v\n", LocalInstrument)
+	InfoLogger.Printf("REFERENCE-ID: %+v\n", ReferenceId)
+	InfoLogger.Printf("SENDER-BIC: %+v\n", SenderBic)
+	InfoLogger.Printf("SENDER-NAME: %+v\n", SenderName)
+	InfoLogger.Printf("SENDER-NAME: %+v\n", Amount)
+	InfoLogger.Printf("CURRENCY: %+v\n", Currency)
+	InfoLogger.Printf("RECEIVINGBIC: %+v\n", ReceivingBic)
+	InfoLogger.Printf("RECEIVING-NAME: %+v\n", ReceivingName)
+	InfoLogger.Printf("RECEIVING-ACCOUNT: %+v\n", ReceivingAccount)
+
+	Separator.Println("")
+	log.Printf("               - - - - Feedback Fraud - - - -   ")
+	log.Printf("GENERATE-ID: %+v\n", GenTraceId)
+	log.Printf("TRANSACT-STATUS: %+v\n", message)
+	log.Printf("SENDER ACCOUNT: %+v\n", SenderAccount)
+	log.Printf("SENDER ACCOUNT: %+v\n", DateTime)
+	log.Printf("STATUS: %+v\n", TraceStatus)
+	log.Printf("INSTRUNCTION: %+v\n", InstructionId)
+	log.Printf("TRANSACTION-TYPE: %+v\n", TransactionType)
+	log.Printf("STATUS: %+v\n", Status)
+	log.Printf("REASAON-CODE: %+v\n", ReasonCode)
+	log.Printf("LOCAL-INSTRUMENT: %+v\n", LocalInstrument)
+	log.Printf("REFERENCE-ID: %+v\n", ReferenceId)
+	log.Printf("SENDER-BIC: %+v\n", SenderBic)
+	log.Printf("SENDER-NAME: %+v\n", SenderName)
+	log.Printf("SENDER-NAME: %+v\n", Amount)
+	log.Printf("CURRENCY: %+v\n", Currency)
+	log.Printf("RECEIVINGBIC: %+v\n", ReceivingBic)
+	log.Printf("RECEIVING-NAME: %+v\n", ReceivingName)
+	log.Printf("RECEIVING-ACCOUNT: %+v\n", ReceivingAccount)
+}
+
+//-------------------------------
 // // creditransferfeedbacklogs
 // func Creditransferfeedbacklogs(class, folder, Uniqueidcredittransfer string, message string, Instructionid string, requestTrigger, Transactiontype string, Status string, Reasoncode string, Description string, Localinstrument string, Referenceid string, Senderbic string, Sendername string, Senderaccount string, Amountcurrency string, Senderamount float64, Receivingbic string, Receivingname string, Receivingaccount string, Trace_alert string, Sourcetxntype string) {
 // 	currentTime := time.Now()

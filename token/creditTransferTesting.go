@@ -85,7 +85,7 @@ func UnblockID(c *fiber.Ctx) error {
 }
 
 func TransferAccount(c *fiber.Ctx) error {
-	trans := &creditTransfer.Trans_Body{}
+	trans := &creditTransfer.TransBody{}
 	if parsErr := c.BodyParser(trans); parsErr != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": parsErr.Error(),
@@ -109,7 +109,7 @@ func TransferAccount(c *fiber.Ctx) error {
 	referenceId := Iftgenerate()
 	requestTrigger := time.Now().Format("2006-01-02 03:04:05")
 
-	response := &creditTransfer.Trans_Request{
+	response := &creditTransfer.TransRequest{
 		InstructionId:   instructionId,
 		ReferenceId:     referenceId,
 		TransactionType: "RECEIVING",
